@@ -886,7 +886,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2020/05/25/Redis/Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86/">
+    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2020/05/25/JVM/StackOverflowError%E4%B8%8EOutOfMemoryError/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeffrey Wang">
@@ -905,7 +905,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/25/Redis/Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86/" itemprop="url">Redis为什么又采用多线程了</a></h1>
+                <a class="post-title-link" href="/2020/05/25/JVM/StackOverflowError%E4%B8%8EOutOfMemoryError/" itemprop="url">StackOverflowError与OutOfMemoryError</a></h1>
         
 
         <div class="post-meta">
@@ -940,8 +940,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Redis/" itemprop="url" rel="index">
-                    <span itemprop="name">Redis</span>
+                  <a href="/categories/JVM/" itemprop="url" rel="index">
+                    <span itemprop="name">JVM</span>
                   </a>
                 </span>
 
@@ -979,12 +979,16 @@
       
         
           
-          Redis 不是已经采用了多路复用技术吗？不是号称很高的性能了吗？为啥还要采用多线程模型呢？
-Redis 为什么最开始被设计成单线程的？Redis 作为一个成熟的分布式缓存框架，它由很多个模块组成，如网络请求模块、索引模块、存储模块、高可用集群支撑模块、数据操作模块等。很多人说 Redis 是单线程
+          
+本文基于 Java 15
+
+StackOverflowError 与 OutOfMemoryError 是两个老生常谈的 Java 错误。Java 中的虚拟机错误 VirtualMachineError 包括以下四种：
+
+我们比较关心的就是 StackOverflowError 与 OutOfMe
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/25/Redis/Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86/#more" rel="contents">
+            <a class="btn" href="/2020/05/25/JVM/StackOverflowError%E4%B8%8EOutOfMemoryError/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
