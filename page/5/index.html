@@ -434,7 +434,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2020/05/25/CoreJava/Java%E4%BC%A0%E9%80%92%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/">
+    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2020/05/25/CoreJava/ClassNotFoundException%E4%B8%8ENoClassDefFoundError%E7%9A%84%E5%8C%BA%E5%88%AB/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeffrey Wang">
@@ -453,7 +453,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/25/CoreJava/Java%E4%BC%A0%E9%80%92%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/" itemprop="url">Java传递可变参数和方法重载</a></h1>
+                <a class="post-title-link" href="/2020/05/25/CoreJava/ClassNotFoundException%E4%B8%8ENoClassDefFoundError%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="url">ClassNotFoundException与NoClassDefFoundError的区别</a></h1>
         
 
         <div class="post-meta">
@@ -527,15 +527,12 @@
       
         
           
-          可变参数形式：类型… 参数名示例：public void show(int… a) {};可变参数在方法中被当作数组来处理可变参数传值的四种方式：
-一个值也不传，可变参数会接收到长度为0的数组
-传null，可变参数会接收到null
-传数组，可变参数会接收到数组
-传1个到多个数组元素值，可变参数会接收
+          ClassNotFoundException发生在装入阶段。当应用程序试图通过类的字符串名称，使用常规的三种方法装入类，但却找不到指定名称的类定义时就抛出该异常。
+根据类加载器的可见性机制，子类加载器可以看到父类加载器加载的类，而反之则不行。所以当一个类已经被Application类加载器加载过了，
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/25/CoreJava/Java%E4%BC%A0%E9%80%92%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/#more" rel="contents">
+            <a class="btn" href="/2020/05/25/CoreJava/ClassNotFoundException%E4%B8%8ENoClassDefFoundError%E7%9A%84%E5%8C%BA%E5%88%AB/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -886,7 +883,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2020/05/25/JVM/StackOverflowError%E4%B8%8EOutOfMemoryError/">
+    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2020/05/25/CoreJava/Java%E4%BC%A0%E9%80%92%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeffrey Wang">
@@ -905,7 +902,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2020/05/25/JVM/StackOverflowError%E4%B8%8EOutOfMemoryError/" itemprop="url">StackOverflowError与OutOfMemoryError</a></h1>
+                <a class="post-title-link" href="/2020/05/25/CoreJava/Java%E4%BC%A0%E9%80%92%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/" itemprop="url">Java传递可变参数和方法重载</a></h1>
         
 
         <div class="post-meta">
@@ -940,8 +937,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JVM/" itemprop="url" rel="index">
-                    <span itemprop="name">JVM</span>
+                  <a href="/categories/CoreJava/" itemprop="url" rel="index">
+                    <span itemprop="name">CoreJava</span>
                   </a>
                 </span>
 
@@ -979,16 +976,15 @@
       
         
           
-          
-本文基于 Java 15
-
-StackOverflowError 与 OutOfMemoryError 是两个老生常谈的 Java 错误。Java 中的虚拟机错误 VirtualMachineError 包括以下四种：
-
-我们比较关心的就是 StackOverflowError 与 OutOfMe
+          可变参数形式：类型… 参数名示例：public void show(int… a) {};可变参数在方法中被当作数组来处理可变参数传值的四种方式：
+一个值也不传，可变参数会接收到长度为0的数组
+传null，可变参数会接收到null
+传数组，可变参数会接收到数组
+传1个到多个数组元素值，可变参数会接收
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2020/05/25/JVM/StackOverflowError%E4%B8%8EOutOfMemoryError/#more" rel="contents">
+            <a class="btn" href="/2020/05/25/CoreJava/Java%E4%BC%A0%E9%80%92%E5%8F%AF%E5%8F%98%E5%8F%82%E6%95%B0%E5%92%8C%E6%96%B9%E6%B3%95%E9%87%8D%E8%BD%BD/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
