@@ -1,0 +1,1249 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="分布式ID," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="研发背景在分布式服务中，各种复杂的业务场景需要有一个用于做唯一标识的id，例如订单业务，支付流水，聊天通信等业务场景。尤其是在分库分表场景中，分布式id生成器的使用频率更高。因此分布式id组件的设计应该要能支持以下几个特性： 1.全局唯一特性 这个点比较好理解，这里就不做过多的解释。 2.组件递增特性 可以是每个id都具有递增的特性也可以是支持区间段内具备递增的特性。 3.安全性 有些重要的id如">
+<meta name="keywords" content="分布式ID">
+<meta property="og:type" content="article">
+<meta property="og:title" content="分布式ID生成器组件">
+<meta property="og:url" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;03&#x2F;31&#x2F;Microservices&amp;DistributedSystem&#x2F;%E5%88%86%E5%B8%83%E5%BC%8FID%E7%94%9F%E6%88%90%E5%99%A8%E7%BB%84%E4%BB%B6&#x2F;index.html">
+<meta property="og:site_name" content="Jeffrey&#39;s Blog">
+<meta property="og:description" content="研发背景在分布式服务中，各种复杂的业务场景需要有一个用于做唯一标识的id，例如订单业务，支付流水，聊天通信等业务场景。尤其是在分库分表场景中，分布式id生成器的使用频率更高。因此分布式id组件的设计应该要能支持以下几个特性： 1.全局唯一特性 这个点比较好理解，这里就不做过多的解释。 2.组件递增特性 可以是每个id都具有递增的特性也可以是支持区间段内具备递增的特性。 3.安全性 有些重要的id如">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;distributed_id_generate.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;mongodb_id_generate.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;mongodb_id_detail.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;id_generate_customize.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;id_generate_customize_config.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;id_generate_customize_bitset.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;distributed_id_jmeter_test.png">
+<meta property="og:updated_time" content="2021-03-31T03:25:35.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;distributed_id_generate.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wangqi-jeffrey.github.io/2021/03/31/Microservices&DistributedSystem/分布式ID生成器组件/"/>
+
+
+
+
+
+  <title>分布式ID生成器组件 | Jeffrey's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/wangqi-jeffrey" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="85" height="85" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <!--<span class="logo-line-before"><i></i></span>-->
+        <span class="site-title">Jeffrey's Blog</span>
+        <!--<span class="logo-line-after"><i></i></span>-->
+      </a>
+    </div>
+      
+        <p class="site-subtitle">王琪的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/03/31/Microservices&DistributedSystem/%E5%88%86%E5%B8%83%E5%BC%8FID%E7%94%9F%E6%88%90%E5%99%A8%E7%BB%84%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeffrey Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeffrey's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">分布式ID生成器组件</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-31T11:25:35+08:00">
+                2021-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">微服务与分布式</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h4 id="研发背景"><a href="#研发背景" class="headerlink" title="研发背景"></a>研发背景</h4><p>在分布式服务中，各种复杂的业务场景需要有一个用于做唯一标识的id，例如订单业务，支付流水，聊天通信等业务场景。尤其是在分库分表场景中，分布式id生成器的使用频率更高。因此分布式id组件的设计应该要能支持以下几个特性：</p>
+<p><strong>1.全局唯一特性</strong></p>
+<p>这个点比较好理解，这里就不做过多的解释。</p>
+<p><strong>2.组件递增特性</strong></p>
+<p>可以是每个id都具有递增的特性也可以是支持区间段内具备递增的特性。</p>
+<p><strong>3.安全性</strong></p>
+<p>有些重要的id如果无意中暴露在了外网环境中，如果没有做过安全防范其实是一件非常危险的事情。例如说订单的id如果只是更具日期加订单数目的格式生成，例如说：2020111100001表示2020年11月11日的第一笔订单，那么如果竞对获取到了</p>
+<p>2020111100999这个id，再根据订单的生成时间则大概可以推断出该公司某日生成的订单数目的大致量级。</p>
+<p><strong>4.高qps</strong></p>
+<p>分布式id生成组件在使用过程中主要是qps偏高，因此在设计起初应该要能支持较高的qps查询，同时对于网络的延迟特性也需要尽可能降低。</p>
+<p><strong>5.高可用</strong></p>
+<p>由于分布式id生成器是一个需要支持多个服务调用方共同使用的公共服务，一旦出现崩溃后果不堪设想，可能会导致大面积的业务线崩塌，所以在高可用方面需要考虑得尤其重要。</p>
+<h4 id="业界常见的分布式id生成方案比对"><a href="#业界常见的分布式id生成方案比对" class="headerlink" title="业界常见的分布式id生成方案比对"></a>业界常见的分布式id生成方案比对</h4><h5 id="uuid"><a href="#uuid" class="headerlink" title="uuid"></a>uuid</h5><p>java程序中实现uuid的代码：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">String result = UUID.randomUUID().toString();</span><br><span class="line">System.out.println(result);</span><br></pre></td></tr></table></figure>
+
+<p>生成的格式如下所示：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">b0b2197d-bc8c-4fab-ad73-2b54e11b0869</span><br></pre></td></tr></table></figure>
+
+<p>uuid的格式其实是会被 - 符号划分为五个模块，主要是分为了8-4-4-4-12个字符拼接而成的一段字符串。但是这种字符串的格式对于互联网公司中主推的MySQL数据库并不友好。</p>
+<p>尤其是当使用生成的id作为索引的时候，uuid长度过长，大数据量的时候会导致b+树的叶子结点裂变频率加大，而且在进行索引比对的时候需要进行逐个字符比对，性能损耗也较高，应该抛弃该方案。uuid的主要组成由以下几个部位：</p>
+<ul>
+<li>当前日期和时间</li>
+<li>随机数字</li>
+<li>机器的MAC地址（能够保证全球范围内机器的唯一特性）</li>
+</ul>
+<p><a href="https://wangqi-jeffrey.github.io/2020/12/23/Database/%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8uuid%E6%88%96%E8%80%85%E9%9B%AA%E8%8A%B1id%E4%BD%9C%E4%B8%BA%E4%B8%BB%E9%94%AE/">扩展阅读</a></p>
+<h5 id="雪花算法"><a href="#雪花算法" class="headerlink" title="雪花算法"></a>雪花算法</h5><p>SnowFlake是Twitter公司采用的一种算法，目的是在分布式系统中产生全局唯一且趋势递增的ID。</p>
+<p><img src="/.io//distributed_id_generate.png" alt="Image zoo"></p>
+<p>稍微解释一些雪花算法的含义：</p>
+<p>第一位通常是0，没有特殊使用含义，因为1通常表示为补码。</p>
+<p>中间的41位是用于存储时间，41位的长度足够容纳69年左右的时长。</p>
+<p>10bit用于标示机器自身的id，从而表示不通机器自身id的不同。</p>
+<p>最后12位bit用于表示某一毫秒内的序列号，12位（bit）可以表示的最大正整数是4096-1=4095，所以也就是说一毫秒内可以同时生成4095个id。</p>
+<p>时间戳位置和序列号位置还不能随意调整，应为要保证逐渐递增的特性。</p>
+<p><strong>好处</strong></p>
+<p>能够保证递增的特性，id具有明确的含义，易懂。</p>
+<p><strong>不足点</strong></p>
+<p>但是对于机器自身的系统时间有所依赖，一旦机器的系统时间发生了变化，在高并发环境下就有可能会有重复id生成的风险。</p>
+<p>有些业务场景希望在id中加入特殊的业务规则名称前缀</p>
+<p>例如短信的id：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sms_108678123</span><br></pre></td></tr></table></figure>
+
+<p>奖券的id：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">coupon_12908123</span><br></pre></td></tr></table></figure>
+
+<p>需要基于这种算法进行改造，实现支持id注入“基因”的这一特性。</p>
+<h4 id="mongodb的主键id设计思路"><a href="#mongodb的主键id设计思路" class="headerlink" title="mongodb的主键id设计思路"></a>mongodb的主键id设计思路</h4><p>其实在mongodb里面也有使用到往主键id中注入一些“基因”要素点的这类思路：</p>
+<p>mongodb里面没有自增的id。</p>
+<p><img src="/.io//mongodb_id_generate.png" alt="Image zoo"></p>
+<p>_id是唯一标识的key，value通常我们会设置为objectid对象。</p>
+<p>objectid里面包含了时间戳，宿主机的ip，进程号码，自增号</p>
+<p><img src="/.io//mongodb_id_detail.png" alt="Image zoo"></p>
+<h4 id="自研主要设计思路"><a href="#自研主要设计思路" class="headerlink" title="自研主要设计思路"></a>自研主要设计思路</h4><p>MySQL配置id生成规则，拉取到本地缓存中形成一段本地id，从而降低对于db的访问。</p>
+<p>支持集群配置id生成器，能够支持高qps访问和较好的扩容性。</p>
+<p><img src="/.io//id_generate_customize.png" alt="Image zoo"></p>
+<p>配置表如下方所示：</p>
+<p><img src="/.io//id_generate_customize_config.png" alt="Image zoo"></p>
+<p>建表sql：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `t_id_builder_config` (</span><br><span class="line">  `id` int(11) NOT NULL AUTO_INCREMENT,</span><br><span class="line">  `des` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT &apos;描述&apos;,</span><br><span class="line">  `init_num` bigint(13) DEFAULT NULL COMMENT &apos;id起步值&apos;,</span><br><span class="line">  `current_threshold` bigint(16) DEFAULT NULL COMMENT &apos;当前id所在阶段的阈值&apos;,</span><br><span class="line">  `step` int(8) DEFAULT NULL COMMENT &apos;id递增区间&apos;,</span><br><span class="line">  `biz_code` varchar(60) COLLATE utf8mb4_unicode_ci DEFAULT NULL COMMENT &apos;业务前缀码，如果没有则返回时不携带&apos;,</span><br><span class="line">  `version` int(11) NOT NULL DEFAULT &apos;0&apos; COMMENT &apos;乐观锁版本号&apos;,</span><br><span class="line">  `is_seq` smallint(2) NOT NULL DEFAULT &apos;0&apos; COMMENT &apos;id连续递增，0 是  1 不是&apos;,</span><br><span class="line">  `create_time` datetime DEFAULT CURRENT_TIMESTAMP,</span><br><span class="line">  `update_time` datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,</span><br><span class="line">  PRIMARY KEY (`id`)</span><br><span class="line">) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;</span><br></pre></td></tr></table></figure>
+
+<p>几个核心设计点：</p>
+<p><strong>当同时有多个请求访问mysql获取id配置的时候该如何防止并发问题？</strong></p>
+<p>这里我采用了for update的方式加行锁进行读取，同时对于行信息进行更新的时候加入了version版本号信息字段防止更新重复的情况。</p>
+<p>假设说更新失败，也会有cas的方式进行重试，重试超过一定次数之后直接中断。</p>
+<p><strong>为何不引入redis作为分布式锁来防止并发修改数据库操作？</strong></p>
+<p>不希望将该组件变得过于繁杂，减少系统对于第三方的依赖性</p>
+<p><strong>假设本地id还没使用完，结果当前服务器宕机了，该如何预防？</strong></p>
+<p>每次服务启动都需要更新表的配置，拉去最新的一批id集合到本地，这样就不会出现和之前id冲突的问题了。</p>
+<p><strong>本地id集合中如何判断id是否已经使用过？</strong></p>
+<p>如果是连续递增型的id，这一步可以忽略，因为本地id每次获取的时候都会比上一个id要大。但是如果是拉取了一段区间的id到本地之后进行随机返回就需要加入bitset作为过滤器了。对于已经使用过的id，则对应bit置为1。如果随机返回的区间id多次都已经被占用了，则超过一定频率之后需要重新拉取id到本地。</p>
+<p><img src="/.io//id_generate_customize_bitset.png" alt="Image zoo"></p>
+<p><strong>不通机器的状态表示码该如何设置？</strong></p>
+<p>可以通过启动脚本中配置相关参数：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-DidBuilder.index=1001</span><br></pre></td></tr></table></figure>
+
+<p>进行配置，然后通过System.getProperty(“idBuilder.index”)的方式来获取.</p>
+<p><strong>核心代码思路：</strong></p>
+<p><strong>接口设计：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">public interface IdBuilderService &#123;</span><br><span class="line">    /**</span><br><span class="line">     * 根据本地步长度来生成唯一id(区间性递增)</span><br><span class="line">     *</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    Long unionId(int code);</span><br><span class="line">    /**</span><br><span class="line">     * 对于unionId的算法进行优化(连续性递增)</span><br><span class="line">     *</span><br><span class="line">     * @param code</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    Long unionSeqId(int code);</span><br><span class="line">    /**</span><br><span class="line">     * 生成包含业务前缀的自增id(区间性递增)</span><br><span class="line">     *</span><br><span class="line">     * @param code</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    String unionIdStr(int code);</span><br><span class="line">    /**</span><br><span class="line">     * 生成包含业务前缀的自增id(连续性递增)</span><br><span class="line">     *</span><br><span class="line">     * @param code</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    String unionSeqIdStr(int code);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>具体实现：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br></pre></td><td class="code"><pre><span class="line">public class IdBuilderServiceImpl implements IdBuilderService, InitializingBean &#123;</span><br><span class="line">    private static ConcurrentHashMap&lt;Integer, BitSet&gt; bitSetMap = new ConcurrentHashMap&lt;&gt;();</span><br><span class="line">    private static Map&lt;Integer, IdBuilderPO&gt; idBuilderNotSeqMap;</span><br><span class="line">    private static Map&lt;Integer, IdBuilderPO&gt; idBuilderSeqMap;</span><br><span class="line">    private static Map&lt;Integer, LocalSeqId&gt; localSeqMap;</span><br><span class="line">    private static Map&lt;Integer, Boolean&gt; newBuilderMap;</span><br><span class="line">    private final static Object monitor = new Object();</span><br><span class="line">    @Resource</span><br><span class="line">    private IdBuilderMapper idBuilderMapper;</span><br><span class="line">  </span><br><span class="line">    private int idBuilderIndex;</span><br><span class="line">    @Override</span><br><span class="line">    public Long unionId(int code) &#123;</span><br><span class="line">        //考虑到锁升级问题，在高并发场景下使用synchronized要比cas更佳</span><br><span class="line">        synchronized (monitor) &#123;</span><br><span class="line">            IdBuilderPO idBuilderPO = idBuilderNotSeqMap.get(code);</span><br><span class="line">            if (idBuilderPO == null) &#123;</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">            boolean isNew = newBuilderMap.get(code);</span><br><span class="line">            if (isNew) &#123;</span><br><span class="line">                //预防出现id生成器网络中断问题</span><br><span class="line">                IdBuilderPO newIdBuilderPO = this.refreshIdBuilderConfig(idBuilderPO);</span><br><span class="line">                if (newIdBuilderPO == null) &#123;</span><br><span class="line">                    log.error(&quot;[unionId] refreshIdBuilderConfig出现异常&quot;);</span><br><span class="line">                    return null;</span><br><span class="line">                &#125;</span><br><span class="line">                idBuilderPO.setCurrentThreshold(newIdBuilderPO.getCurrentThreshold());</span><br><span class="line">                newBuilderMap.put(code, false);</span><br><span class="line">            &#125;</span><br><span class="line">            long initNum = idBuilderPO.getCurrentThreshold();</span><br><span class="line">            int step = idBuilderPO.getStep();</span><br><span class="line">            int randomIndex = RandomUtils.nextInt((int) initNum, (int) initNum + step);</span><br><span class="line">            BitSet bitSet = bitSetMap.get(code);</span><br><span class="line">            if (bitSet == null) &#123;</span><br><span class="line">                bitSet = new BitSet();</span><br><span class="line">                bitSetMap.put(code, bitSet);</span><br><span class="line">            &#125;</span><br><span class="line">            Long id;</span><br><span class="line">            int countTime = 0;</span><br><span class="line">            while (true) &#123;</span><br><span class="line">                boolean indexExist = bitSet.get(randomIndex);</span><br><span class="line">                countTime++;</span><br><span class="line">                if (!indexExist) &#123;</span><br><span class="line">                    bitSet.set(randomIndex);</span><br><span class="line">                    id = Long.valueOf(randomIndex);</span><br><span class="line">                    break;</span><br><span class="line">                &#125;</span><br><span class="line">                //如果重试次数大于了空间的0.75则需要重新获取新的id区间 测试之后得出 循环一千万次随机函数，16gb内存条件下，大约耗时在124ms左右</span><br><span class="line">                if (countTime &gt;= step * 0.75) &#123;</span><br><span class="line">                    //扩容需要修改表配置</span><br><span class="line">                    IdBuilderPO newIdBuilderPO = this.updateIdBuilderConfig(idBuilderPO);</span><br><span class="line">                    if (newIdBuilderPO == null) &#123;</span><br><span class="line">                        log.error(&quot;重试超过100次没有更新自增id配置成功&quot;);</span><br><span class="line">                        return null;</span><br><span class="line">                    &#125;</span><br><span class="line">                    initNum = newIdBuilderPO.getCurrentThreshold();</span><br><span class="line">                    step = newIdBuilderPO.getStep();</span><br><span class="line">                    idBuilderPO.setCurrentThreshold(initNum);</span><br><span class="line">                    bitSet.clear();</span><br><span class="line">                    log.info(&quot;[unionId] 扩容IdBuilder，new idBuilderPO is &#123;&#125;&quot;,idBuilderPO);</span><br><span class="line">                &#125;</span><br><span class="line">                randomIndex = RandomUtils.nextInt((int) initNum, (int) initNum + step);</span><br><span class="line">            &#125;</span><br><span class="line">            return id;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public Long unionSeqId(int code) &#123;</span><br><span class="line">        synchronized (monitor) &#123;</span><br><span class="line">            LocalSeqId localSeqId = localSeqMap.get(code);</span><br><span class="line">            IdBuilderPO idBuilderPO = idBuilderSeqMap.get(code);</span><br><span class="line">            if (idBuilderPO == null || localSeqId == null) &#123;</span><br><span class="line">                log.error(&quot;[unionSeqId] code 参数有误，code is &#123;&#125;&quot;, code);</span><br><span class="line">                return null;</span><br><span class="line">            &#125;</span><br><span class="line">            boolean isNew = newBuilderMap.get(code);</span><br><span class="line">            long result = localSeqId.getCurrentId();</span><br><span class="line">            localSeqId.setCurrentId(result + 1);</span><br><span class="line">            if (isNew) &#123;</span><br><span class="line">                //预防出现id生成器网络中断问题</span><br><span class="line">                IdBuilderPO updateIdBuilderPO = this.refreshIdBuilderConfig(idBuilderPO);</span><br><span class="line">                if (updateIdBuilderPO == null) &#123;</span><br><span class="line">                    log.error(&quot;[unionSeqId] refreshIdBuilderConfig出现异常&quot;);</span><br><span class="line">                    return null;</span><br><span class="line">                &#125;</span><br><span class="line">                newBuilderMap.put(code, false);</span><br><span class="line">                localSeqId.setCurrentId(updateIdBuilderPO.getCurrentThreshold());</span><br><span class="line">                localSeqId.setNextUpdateId(updateIdBuilderPO.getCurrentThreshold() + updateIdBuilderPO.getStep());</span><br><span class="line">            &#125;</span><br><span class="line">            //需要更新本地步长</span><br><span class="line">            if (localSeqId.getCurrentId() &gt;= localSeqId.getNextUpdateId()) &#123;</span><br><span class="line">                IdBuilderPO newIdBuilderPO = this.updateIdBuilderConfig(idBuilderPO);</span><br><span class="line">                if (newIdBuilderPO == null) &#123;</span><br><span class="line">                    log.error(&quot;[unionSeqId] updateIdBuilderConfig出现异常&quot;);</span><br><span class="line">                    return null;</span><br><span class="line">                &#125;</span><br><span class="line">                idBuilderPO.setCurrentThreshold(newIdBuilderPO.getCurrentThreshold());</span><br><span class="line">                localSeqId.setCurrentId(newIdBuilderPO.getCurrentThreshold());</span><br><span class="line">                localSeqId.setNextUpdateId(newIdBuilderPO.getCurrentThreshold() + newIdBuilderPO.getStep());</span><br><span class="line">                log.info(&quot;[unionSeqId] 扩容IdBuilder，new localSeqId is &#123;&#125;&quot;,localSeqId);</span><br><span class="line">            &#125;</span><br><span class="line">            return result;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 刷新id生成器的配置</span><br><span class="line">     *</span><br><span class="line">     * @param idBuilderPO</span><br><span class="line">     */</span><br><span class="line">    private IdBuilderPO refreshIdBuilderConfig(IdBuilderPO idBuilderPO) &#123;</span><br><span class="line">        IdBuilderPO updateResult = this.updateIdBuilderConfig(idBuilderPO);</span><br><span class="line">        if (updateResult == null) &#123;</span><br><span class="line">            log.error(&quot;更新数据库配置出现异常,idBuilderPO is &#123;&#125;&quot;, idBuilderPO);</span><br><span class="line">            throw new RuntimeErrorException(new Error(&quot;更新数据库配置出现异常,idBuilderPO is &quot; + idBuilderPO.toString()));</span><br><span class="line">        &#125;</span><br><span class="line">        return updateResult;</span><br><span class="line">    &#125;</span><br><span class="line">    /**</span><br><span class="line">     * 考虑分布式环境下 多个请求同时更新同一行数据的情况</span><br><span class="line">     *</span><br><span class="line">     * @param idBuilderPO</span><br><span class="line">     * @return</span><br><span class="line">     */</span><br><span class="line">    private IdBuilderPO updateIdBuilderConfig(IdBuilderPO idBuilderPO) &#123;</span><br><span class="line">        int updateResult = -1;</span><br><span class="line">        //假设重试过程中出现网络异常，那么使用cas的时候必须要考虑退出情况 极限情况下更新100次</span><br><span class="line">        for (int i = 0; i &lt; 100; i++) &#123;</span><br><span class="line">            IdBuilderPO newIdBuilderPO = idBuilderMapper.selectOneForUpdate(idBuilderPO.getId());</span><br><span class="line">            updateResult = idBuilderMapper.updateCurrentThreshold(newIdBuilderPO.getCurrentThreshold() + newIdBuilderPO.getStep(), newIdBuilderPO.getId(), newIdBuilderPO.getVersion());</span><br><span class="line">            if (updateResult &gt; 0) &#123;</span><br><span class="line">                return newIdBuilderPO;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        return null;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public String unionIdStr(int code) &#123;</span><br><span class="line">        long id = this.unionId(code);</span><br><span class="line">        IdBuilderPO idBuilderPO = idBuilderNotSeqMap.get(code);</span><br><span class="line">        return idBuilderPO.getBizCode() + idBuilderIndex + id;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public String unionSeqIdStr(int code) &#123;</span><br><span class="line">        long id = this.unionSeqId(code);</span><br><span class="line">        IdBuilderPO idBuilderPO = idBuilderSeqMap.get(code);</span><br><span class="line">        return idBuilderPO.getBizCode() + idBuilderIndex + id;</span><br><span class="line">    &#125;</span><br><span class="line">    @Override</span><br><span class="line">    public void afterPropertiesSet() &#123;</span><br><span class="line">        List&lt;IdBuilderPO&gt; idBuilderPOS = idBuilderMapper.selectAll();</span><br><span class="line">        idBuilderNotSeqMap = new ConcurrentHashMap&lt;&gt;(idBuilderPOS.size());</span><br><span class="line">        newBuilderMap = new ConcurrentHashMap&lt;&gt;(idBuilderPOS.size());</span><br><span class="line">        idBuilderSeqMap = new ConcurrentHashMap&lt;&gt;(idBuilderPOS.size());</span><br><span class="line">        localSeqMap = new ConcurrentHashMap&lt;&gt;(0);</span><br><span class="line">        //每次重启到时候，都需要将之前的上一个区间的id全部抛弃，使用新的步长区间</span><br><span class="line">        for (IdBuilderPO idBuilderPO : idBuilderPOS) &#123;</span><br><span class="line">            if (idBuilderPO.getIsSeq() == NEED_SEQ) &#123;</span><br><span class="line">                idBuilderSeqMap.put(idBuilderPO.getId(), idBuilderPO);</span><br><span class="line">                LocalSeqId localSeqId = new LocalSeqId();</span><br><span class="line">                localSeqId.setNextUpdateId(idBuilderPO.getCurrentThreshold() + idBuilderPO.getStep());</span><br><span class="line">                localSeqId.setCurrentId(idBuilderPO.getCurrentThreshold());</span><br><span class="line">                localSeqMap.put(idBuilderPO.getId(), localSeqId);</span><br><span class="line">            &#125; else &#123;</span><br><span class="line">                idBuilderNotSeqMap.put(idBuilderPO.getId(), idBuilderPO);</span><br><span class="line">            &#125;</span><br><span class="line">            newBuilderMap.put(idBuilderPO.getId(), true);</span><br><span class="line">        &#125;</span><br><span class="line">        this.idBuilderIndex= Integer.parseInt(System.getProperty(&quot;idBuilder.index&quot;));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><strong>application.yml配置文件：</strong></p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mybatis-plus:</span><br><span class="line">  configuration:</span><br><span class="line">    map-underscore-to-camel-case: true</span><br><span class="line">server:</span><br><span class="line">  port: 8082</span><br><span class="line">  tomcat:</span><br><span class="line">    max-threads: 500</span><br><span class="line">    max-connections: 5000</span><br></pre></td></tr></table></figure>
+
+<p>注意需要结合实际机器配置nginx的并发线程数目和tomcat的并发访问参数。</p>
+<p><strong>测试环节：</strong></p>
+<p>通过将服务打包部署在机器上边，同时运行多个服务，通过nginx配置负载均衡，请求到不同的机器上边。</p>
+<p>压测的一些相关配置参数：</p>
+<p><img src="/.io//distributed_id_jmeter_test.png" alt="Image zoo"></p>
+<p>当我们需要扩增机器的时候，新加的机器不会对原有发号令机器的id产生影响，可以支持较好的扩容。</p>
+<p><strong>每次拉取的本地id段应该设计在多次较好？</strong></p>
+<p>这里我们先将本地id段简称为segment。</p>
+<p>按照一些过往经验的参考，通常是希望id发号器能够尽量减少对于MySQL的访问次数，同时也需要结合实际部门的运维能力进行把控。</p>
+<p>假设说我们MySQL是采用了1主2从的方式搭建，当某一从节点挂了，切换新的从节点时候需要消耗大约1分钟时长，那么我们的segment至少需要设计为高峰期QPS * 60 * 1 * 4 ，期间考需要额外考虑一些其他因素，例如网络新的节点切换之后带来的一些网络抖动问题等等，这能够保证即使MySQL出现了故障，本地的segment也可以暂时支撑一段时间。</p>
+<p><strong>设计待完善点</strong>：</p>
+<p>该系统的设计不足点在于，当本地id即将用光的时候需要进行数据库查询，因此这个关键点会拖慢系统的响应时长，所以这里可以采用异步更新配置拉取id的思路进行完善。也就是说当本地id列表剩余只有15%可以使用的时候，便可以进行开启一个异步线程去拉取id列表了。</p>
+<p><a href="https://github.com/wangqi-jeffrey/jeffrey-blog-examples/tree/main/Microservices%26DistributedSystem/distributed-id" target="_blank" rel="noopener">代码位置</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>读后有收获可以请作者喝杯咖啡</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Jeffrey Wang 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8FID/" rel="tag"># 分布式ID</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/31/Microservices&DistributedSystem/%E5%88%86%E5%B8%83%E5%BC%8F%E4%BA%8B%E5%8A%A1/" rel="next" title="分布式事务">
+                <i class="fa fa-chevron-left"></i> 分布式事务
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/31/CoreJava/%E4%B8%BA%E4%BB%80%E4%B9%88%E9%98%BF%E9%87%8C%E5%B7%B4%E5%B7%B4%E7%A6%81%E6%AD%A2%E4%BD%BF%E7%94%A8BigDecimal%E7%9A%84equals%E6%96%B9%E6%B3%95%E5%81%9A%E7%AD%89%E5%80%BC%E6%AF%94%E8%BE%83/" rel="prev" title="为什么阿里巴巴禁止使用BigDecimal的equals方法做等值比较">
+                为什么阿里巴巴禁止使用BigDecimal的equals方法做等值比较 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="Jeffrey Wang" />
+            
+              <p class="site-author-name" itemprop="name">Jeffrey Wang</p>
+              <p class="site-description motion-element" itemprop="description">虚怀若谷，持续学习，持续进步，共勉。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangqi-jeffrey" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wang_qi7878@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/wangqi-jeffrey/" target="_blank" title="CN-blogs">
+                      
+                        <i class="fa fa-fw fa-rss"></i>CN-blogs</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/u014029255" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-link"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/10551785/user10551785?tab=summary" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#研发背景"><span class="nav-number">1.</span> <span class="nav-text">研发背景</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#业界常见的分布式id生成方案比对"><span class="nav-number">2.</span> <span class="nav-text">业界常见的分布式id生成方案比对</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#uuid"><span class="nav-number">2.1.</span> <span class="nav-text">uuid</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#雪花算法"><span class="nav-number">2.2.</span> <span class="nav-text">雪花算法</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#mongodb的主键id设计思路"><span class="nav-number">3.</span> <span class="nav-text">mongodb的主键id设计思路</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#自研主要设计思路"><span class="nav-number">4.</span> <span class="nav-text">自研主要设计思路</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeffrey Wang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+<span class="post-meta-divider">|</span>
+<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn/">京ICP备 20024589号</a>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
