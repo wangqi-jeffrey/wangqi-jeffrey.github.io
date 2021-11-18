@@ -1,0 +1,1288 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="开发规范," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="在本文中，将从大到小，从外到内，总结Java编程中的命名规范。文中将会涉及到日常工作中常见的命名示例，如包命名，类命名，接口命名，方法命名，变量命名，常类命名，抽象类命名，异常类命名以及扩展类命名等。我将按照项目工程目录结构，从包，类(接口，抽象类，异常类)，方法，变量和常量的顺序展开介绍。 本文是 Java 命名规范的介绍，建议收藏转发。 1. 包命名规范包(Package)的作用是将功能相似或">
+<meta name="keywords" content="开发规范">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Java 命名规范">
+<meta property="og:url" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;03&#x2F;31&#x2F;%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83&#x2F;Java%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83&#x2F;index.html">
+<meta property="og:site_name" content="Jeffrey&#39;s Blog">
+<meta property="og:description" content="在本文中，将从大到小，从外到内，总结Java编程中的命名规范。文中将会涉及到日常工作中常见的命名示例，如包命名，类命名，接口命名，方法命名，变量命名，常类命名，抽象类命名，异常类命名以及扩展类命名等。我将按照项目工程目录结构，从包，类(接口，抽象类，异常类)，方法，变量和常量的顺序展开介绍。 本文是 Java 命名规范的介绍，建议收藏转发。 1. 包命名规范包(Package)的作用是将功能相似或">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;1.png">
+<meta property="og:updated_time" content="2021-11-18T11:14:03.529Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;1.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="https://wangqi-jeffrey.github.io/2021/03/31/开发规范/Java命名规范/"/>
+
+
+
+
+
+  <title>Java 命名规范 | Jeffrey's Blog</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <a href="https://github.com/wangqi-jeffrey" target="_blank" rel="noopener" class="github-corner" aria-label="View source on GitHub"><svg width="85" height="85" viewBox="0 0 250 250" style="fill:#151513; color:#fff; position: absolute; top: 0; border: 0; right: 0;" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a><style>.github-corner:hover .octo-arm{animation:octocat-wave 560ms ease-in-out}@keyframes octocat-wave{0%,100%{transform:rotate(0)}20%,60%{transform:rotate(-25deg)}40%,80%{transform:rotate(10deg)}}@media (max-width:500px){.github-corner:hover .octo-arm{animation:none}.github-corner .octo-arm{animation:octocat-wave 560ms ease-in-out}}</style>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <!--<span class="logo-line-before"><i></i></span>-->
+        <span class="site-title">Jeffrey's Blog</span>
+        <!--<span class="logo-line-after"><i></i></span>-->
+      </a>
+    </div>
+      
+        <p class="site-subtitle">王琪的个人博客</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" target="" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off"
+             placeholder="搜索..." spellcheck="false"
+             type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/03/31/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/Java%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeffrey Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeffrey's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Java 命名规范</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-31T12:10:05+08:00">
+                2021-03-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/" itemprop="url" rel="index">
+                    <span itemprop="name">开发规范</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在本文中，将从大到小，从外到内，总结Java编程中的命名规范。文中将会涉及到日常工作中常见的命名示例，如包命名，类命名，接口命名，方法命名，变量命名，常类命名，抽象类命名，异常类命名以及扩展类命名等。我将按照项目工程目录结构，从包，类(接口，抽象类，异常类)，方法，变量和常量的顺序展开介绍。</p>
+<p>本文是 Java 命名规范的介绍，建议收藏转发。</p>
+<h2 id="1-包命名规范"><a href="#1-包命名规范" class="headerlink" title="1. 包命名规范"></a>1. 包命名规范</h2><p>包(Package)的作用是将功能相似或相关的类或者接口进行分组管理，便于类的定位和查找，同时也可以使用包来避免类名的冲突和访问控制，使代码更容易维护。通常，包命使用小写英文字母进行命名，并使用“.”进行分割，每个被分割的单元只能包含一个名词。</p>
+<p>一般地，包命名常采用顶级域名作为前缀，例如com，net，org，edu，gov，cn，io等，随后紧跟公司/组织/个人名称以及功能模块名称。下面是一些包命名示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">package org.springframework.boot.autoconfigure.cloud</span><br><span class="line">package org.springframework.boot.util</span><br><span class="line">package org.hibernate.action</span><br><span class="line">package org.hibernate.cfg</span><br><span class="line">package com.alibaba.druid</span><br><span class="line">package com.alibaba.druid.filter</span><br><span class="line">package com.alibaba.nacos.client.config</span><br><span class="line">package com.ramostear.blog.web</span><br></pre></td></tr></table></figure>
+
+<p>下面是Oracle Java的一些常见包命名例子：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">package java.beans</span><br><span class="line">package java.io</span><br><span class="line">package java.lang</span><br><span class="line">package java.net</span><br><span class="line">package java.util</span><br><span class="line">package javax.annotation</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-类命名规范"><a href="#2-类命名规范" class="headerlink" title="2. 类命名规范"></a>2. 类命名规范</h2><p>类(Class)通常采用名词进行命名，且首字母大写，如果一个类名包含两个以上名词，建议使用驼峰命名(Camel-Case)法书写类名,每个名词首字母也应该大写。一般地，类名的书写尽量使其保持简单和描述的完整性，因此在书写类名时不建议使用缩写(一些约定俗成的命名除外。</p>
+<p>例如 Internationalization and Localization 缩写成i18n，Uniform Resource Identifier缩写成URI，Data Access Object缩写成DAO，JSON Web Token缩写成JWT，HyperText Markup Language缩写成HTML等等)。下列是一些常见的类命名示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class UserDTO&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">class EmployeeService&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">class StudentDAO&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">class OrderItemEntity&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class UserServiceImpl&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class OrderItemController&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面是 Oracle Java 中的一些标准命名示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public class HTMLEditorKit&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public abstract class HttpContext&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public interface ImageObserver&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class ArrayIndexOutOfBoundsException&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class enum Thread.State&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-1-接口命名规范"><a href="#2-1-接口命名规范" class="headerlink" title="2.1 接口命名规范"></a>2.1 接口命名规范</h4><p>首先，接口(Interface)是一种表述某一类型对象动作的特殊类；简单来说，接口也是类(不太严谨)，所以，接口的名称的书写也应该符合类名书写规范，首字母应该大写，与普通类名不同的是，接口命名时通常采用形容词或动词来描述接口的动作行为。下列是Oracle Java中一些标准库的接口使用形容词命名示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public interface Closeable&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public interface Cloneable&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public interface Runnable&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public interface Comparable&lt;T&gt;&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public interface CompletionService&lt;V&gt;&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public interface Iterable&lt;T&gt;&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public interface EventListener&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在Spring Framework标准库中，通常采用名词+动词/形容词的组合方式来命名接口，下列是Spring Framework中一些接口命名示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public interface AfterAdvice&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public interface TargetClassAware&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public interface ApplicationContextAware&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public interface MessageSourceResolvable&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-2-抽象类命名规范"><a href="#2-2-抽象类命名规范" class="headerlink" title="2.2 抽象类命名规范"></a>2.2 抽象类命名规范</h4><p>抽象类(Abstract Class)是一种特殊的类，其命名与普通类的命名规范相当。一般地，为了将抽象类与普通类和接口做出区别，提高抽象类的可读性，在命名抽象类时，会以“Abstract”/“Base”作为类命的前缀。下面是编程中一些常规的命名示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public abstract class AbstractRepository&lt;T&gt;&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public abstract class AbstractController&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public abstract class BaseDao&lt;T,ID&gt;&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public abstract class AbstractCommonService&lt;T&gt;&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>以下是Spring Framework中常见的抽象类示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">public abstract class AbstractAspectJAdvice&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public abstract class AbstractSingletonProxyFactoryBean&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public abstract class AbstractBeanFactoryPointcutAdvisor&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public abstract class AbstractCachingConfiguration&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public abstract class AbstractContextLoaderInitializer&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-3-异常类命名规范"><a href="#2-3-异常类命名规范" class="headerlink" title="2.3 异常类命名规范"></a>2.3 异常类命名规范</h4><p>异常类(Exception Class)也是类的一种，但与普通类命名不同的是，异常类在命名时需要使用“Exception”作为其后缀。下面是常见的异常类命名示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class FileNotFoundException&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class UserAlreadyExistException&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class TransactionException&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class ClassNotFoundException&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class IllegalArgumentException&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class IndexOutOfBoundsException&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>另外，在Java中还有另外一类异常类，它们属于系统异常，这一类异常类的命名使用“Error”作为其后缀，以区分Exception(编码，环境，操作等异常)。下面是系统异常(非检查异常)的命名示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">public abstract class VirtualMachineError&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class StackOverflowError&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class OutOfMemoryError&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class IllegalAccessError&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class NoClassDefFoundError&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class NoSuchFieldError&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class NoSuchMethodError&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-方法命名规范"><a href="#3-方法命名规范" class="headerlink" title="3.方法命名规范"></a>3.方法命名规范</h2><p>方法(Method)命名时,其首字母应该小写，如果方法签名由多个单词组成，则从第二个单词起，使用驼峰命名法进行书写。一般地，在对方法进行命名时，通常采用动词/动词+名词的组合，下面是方法命名的一些常见示例。</p>
+<h4 id="3-1-表述获取"><a href="#3-1-表述获取" class="headerlink" title="3.1 表述获取"></a>3.1 表述获取</h4><p>如果一个方法用于获取某个值，通常使用“get”作为其前缀，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public String getUserName()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public List&lt;Integer&gt; getUserIds()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public User getOne()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-2-表述查询"><a href="#3-2-表述查询" class="headerlink" title="3.2 表述查询"></a>3.2 表述查询</h4><p>如果方法需要通过查询或筛选的方式获取某个数据，通常使用“find”/“query”作为其前缀，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public List&lt;User&gt; findOne(Integer id)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public List&lt;Integer&gt; findAll()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public List&lt;String&gt; queryOrders()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-3-表述条件"><a href="#3-3-表述条件" class="headerlink" title="3.3 表述条件"></a>3.3 表述条件</h4><p>如果一个方法需要一些条件参数，则可以使用“by”/“with”等字符作为方法名中条件的连接符，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">public User findByUsername(String username)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public List&lt;Integer&gt; getUserIdsWithState(boolean state)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public List&lt;User&gt; findAllByUsernameOrderByIdDesc(String username)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-4-表述设置"><a href="#3-4-表述设置" class="headerlink" title="3.4 表述设置"></a>3.4 表述设置</h4><p>如果一个方法是要设置，插入，修改，删除等操作，应该将对应的动词(set,insert,update,delete)作为其名词的前缀，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public void setName(String name)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public User insert(User user)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public void update(User user)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public void clearAll()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-5-其他规范"><a href="#3-5-其他规范" class="headerlink" title="3.5 其他规范"></a>3.5 其他规范</h4><p>如果一个方法用于获取某组数据的长度或数量，则该方法应该使用length或size命名；如果方法的返回值为布尔类型(Boolean)，则该方法应该使用“is”或”has”作为前缀；</p>
+<p>如果方法用于将一种类型的数据转换为另一种数据数类型，则可以使用“to”作为前缀。下面是综合示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">public long length()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public int size()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public boolean isOpen()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public boolean isNotEmpty()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public boolean hasLength()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public Set&lt;Integer&gt; mapToSet(Map map)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public UserDto convertTo(User user)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public String toString(Object obj)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-变量命名规范"><a href="#4-变量命名规范" class="headerlink" title="4.变量命名规范"></a>4.变量命名规范</h2><p>变量(Variable)命名包括参数名称，成员变量和局部变量。变量命名通常以小写字母开头，如果变量名由多个单词构成，则从第二个单词起首字母需要大写，在变量命名过程中，不建议使用“_”作为前缀或者单词之间的分割符号。下面是一些常见的变量命名示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">private String nickName;</span><br><span class="line">private String mobileNumber;</span><br><span class="line">private Long id;</span><br><span class="line">private String username;</span><br><span class="line">private Long orderId;</span><br><span class="line">private Long orderItemId;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-常量命名规范"><a href="#5-常量命名规范" class="headerlink" title="5.常量命名规范"></a>5.常量命名规范</h2><p>一般地，常量名称采用全部大写的英文单词书写，如果常量名称由多个单词组成，则单词之间统一使用“_”进行分割，下面是常量命名示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public static final String LOGIN_USER_SESSION_KEY = &quot;current_login_user&quot;;</span><br><span class="line">public static final int MAX_AGE_VALUE = 120;</span><br><span class="line">public static final int DEFAULT_PAGE_NO = 1;</span><br><span class="line">public static final long MAX_PAGE_SIZE = 1000;</span><br><span class="line">public static final boolean HAS_LICENSE = false;</span><br><span class="line">public static final boolean IS_CHECKED = false;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-枚举命名规范"><a href="#6-枚举命名规范" class="headerlink" title="6. 枚举命名规范"></a>6. 枚举命名规范</h2><p>枚举(Enum)类是一种特殊的类，其命名规范遵循普通类的命名约束条件，首字母大写，采用驼峰命名法；枚举类中定义的值的名称遵循常量的命名规范，且枚举值的名称需要与类名有一定的关联性，下面是枚举的一些示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public enum Color&#123;</span><br><span class="line">    RED,YELLOW,BLUE,GREEN,WHITE;</span><br><span class="line">&#125;</span><br><span class="line">public enum PhysicalSize&#123;</span><br><span class="line">    TINY,SMALL,MEDIUM,LARGE,HUGE,GIGANTIC;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>下面是Oracle Java标准库中的一个示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public enum ElementType&#123;</span><br><span class="line">    TYPE,</span><br><span class="line">    FIELD,</span><br><span class="line">    METHOD,</span><br><span class="line">    PARAMETER,</span><br><span class="line">    CONSTRUCTOR,</span><br><span class="line">    LOCAL_VARIABLE,</span><br><span class="line">    ANNOTATION_TYPE,</span><br><span class="line">    PACKAGE,</span><br><span class="line">    TYPE_PARAMETER,</span><br><span class="line">    TYPE_USE;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-其他命名规范"><a href="#7-其他命名规范" class="headerlink" title="7. 其他命名规范"></a>7. 其他命名规范</h2><h4 id="7-1-数组"><a href="#7-1-数组" class="headerlink" title="7.1 数组"></a>7.1 数组</h4><p>在定义数组时，为了便于阅读，尽量保持以下的书写规范：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">int[] array = new int[10];</span><br><span class="line">int[] idArray =&#123;1,2,3,4,5&#125;;</span><br><span class="line">String[] nameArray = &#123;&quot;First&quot;,&quot;Yellow&quot;,&quot;Big&quot;&#125;</span><br><span class="line"></span><br><span class="line">public List&lt;String&gt; getNameById(Integer[] ids)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public List&lt;String&gt; getNameById(Integer...ids)&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-2-表述复数或者集合"><a href="#7-2-表述复数或者集合" class="headerlink" title="7.2 表述复数或者集合"></a>7.2 表述复数或者集合</h4><p>如果一个变量用于描述多个数据时，尽量使用单词的复数形式进行书写，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Collection&lt;Order&gt; orders;</span><br><span class="line">int[] values;</span><br><span class="line">List&lt;Item&gt; items;</span><br></pre></td></tr></table></figure>
+
+<p>另外，如果表述的是一个Map数据，则应使用“map”作为其后缀，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Map&lt;String,User&gt; userMap;</span><br><span class="line">Map&lt;String,List&lt;Object&gt;&gt; listMap;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-3-泛型类"><a href="#7-3-泛型类" class="headerlink" title="7.3 泛型类"></a>7.3 泛型类</h4><p>在书写泛型类时，通常做以下的约定：</p>
+<ul>
+<li>E表示Element，通常用在集合中；</li>
+<li>ID用于表示对象的唯一标识符类型</li>
+<li>T表示Type(类型)，通常指代类；</li>
+<li>K表示Key(键),通常用于Map中；</li>
+<li>V表示Value(值),通常用于Map中，与K结对出现；</li>
+<li>N表示Number,通常用于表示数值类型；</li>
+<li>？表示不确定的Java类型；</li>
+<li>X用于表示异常；</li>
+<li>U,S表示任意的类型。</li>
+</ul>
+<p>下面时泛型类的书写示例：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">public class HashSet&lt;E&gt; extends AbstractSet&lt;E&gt;&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class HashMap&lt;K,V&gt; extends AbstractMap&lt;K,V&gt;&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class ThreadLocal&lt;T&gt;&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public interface Functor&lt;T,X extends Throwable&gt;&#123;</span><br><span class="line">    T val() throws X;</span><br><span class="line">&#125;</span><br><span class="line">public class Container&lt;K,V&gt;&#123;</span><br><span class="line">    private K key;</span><br><span class="line">    private V value;</span><br><span class="line">    Container(K key,V value)&#123;</span><br><span class="line">        this.key = key;</span><br><span class="line">        this.value = value;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public interface BaseRepository&lt;T,ID&gt;&#123;</span><br><span class="line">    T findById(ID id);</span><br><span class="line"></span><br><span class="line">    void update(T t);</span><br><span class="line"></span><br><span class="line">    List&lt;T&gt; findByIds(ID...ids);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">public static &lt;T&gt; List&lt;T&gt; methodName(Class&lt;T&gt; clz)&#123;</span><br><span class="line">    List&lt;T&gt; dataList = getByClz(clz);</span><br><span class="line">    return dataList;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-4-接口实现类"><a href="#7-4-接口实现类" class="headerlink" title="7.4 接口实现类"></a>7.4 接口实现类</h4><p>为了便于阅读，在通常情况下，建议接口实现类使用“Impl作为后缀”，不建议使用大写的“I”作为接口前缀，下面是接口和接口实现类的书写示例。</p>
+<p>推荐写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public interface OrderService&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class OrderServiceImpl implements OrderService&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不建议的写法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">public interface IOrderService&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line">public class OrderService implements IOrderService&#123;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="7-5-测试类和测试方法"><a href="#7-5-测试类和测试方法" class="headerlink" title="7.5 测试类和测试方法"></a>7.5 测试类和测试方法</h4><p>在项目中，测试类采用被测试业务模块名/被测试接口/被测试类+“Test”的方法进行书写，测试类中的测试函数采用“test”+用例操作_状态的组合方式进行书写，例如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class UserServiceTest&#123;</span><br><span class="line"></span><br><span class="line">    public void testFindByUsernameAndPassword()&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void testUsernameExist_notExist()&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public void testDeleteById_isOk()&#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="8-扩展：速记-Java-开发中的各种O"><a href="#8-扩展：速记-Java-开发中的各种O" class="headerlink" title="8 扩展：速记 Java 开发中的各种O"></a>8 扩展：速记 Java 开发中的各种O</h2><p>最后，通过一张表和图快速对Java中的<code>BO</code>,<code>DTO</code>,<code>DAO</code>,<code>PO</code>,<code>POJO</code>,<code>VO</code>之间的含义，区别以及联系进行梳理。</p>
+<table>
+<thead>
+<tr>
+<th>名称</th>
+<th>使用范围</th>
+<th>解释说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>BO</td>
+<td>用于Service,Manager,Business等业务相关类的命名</td>
+<td>Business Object业务处理对象，主要作用是把业务逻辑封装成一个对象。</td>
+</tr>
+<tr>
+<td>DTO</td>
+<td>经过加工后的PO对象，其内部属性可能增加或减少</td>
+<td>Data Transfer Object数据传输对象，主要用于远程调用等需要大量传输数据的地方，例如，可以将一个或多个PO类的部分或全部属性封装为DTO进行传输</td>
+</tr>
+<tr>
+<td>DAO</td>
+<td>用于对数据库进行读写操作的类进行命名</td>
+<td>Data Access Object数据访问对象，主要用来封装对数据库的访问，通过DAO可以将POJO持久化为PO，也可以利用PO封装出VO和DTO</td>
+</tr>
+<tr>
+<td>PO</td>
+<td>Bean,Entity等类的命名</td>
+<td>Persistant Object持久化对象，数据库表中的数据在Java对象中的映射状态，可以简单的理解为一个PO对象即为数据库表中的一条记录</td>
+</tr>
+<tr>
+<td>POJO</td>
+<td>POJO是DO/DTO/BO/VO的统称</td>
+<td>Plain Ordinary Java Object 简单Java对象，它是一个简单的普通Java对象，禁止将类命名为XxxxPOJO</td>
+</tr>
+<tr>
+<td>VO</td>
+<td>通常是视图控制层和模板引擎之间传递的数据对象</td>
+<td>Value Object 值对象，主要用于视图层，视图控制器将视图层所需的属性封装成一个对象，然后用一个VO对象在视图控制器和视图之间进行数据传输。</td>
+</tr>
+<tr>
+<td>AO</td>
+<td>应用层对象</td>
+<td>Application Object，在Web层与Service层之间抽象的复用对象模型，很少用。</td>
+</tr>
+</tbody></table>
+<p>下面将通过一张图来理解上述几种O之间相互转换的关系：</p>
+<p><img src="/.io//1.png" alt></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+      <div>
+        <div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center;">
+  <div>读后有收获可以请作者喝杯咖啡</div>
+  <button id="rewardButton" disable="enable" onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}">
+    <span>打赏</span>
+  </button>
+  <div id="QR" style="display: none;">
+
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/wechatpay.png" alt="Jeffrey Wang 微信支付"/>
+        <p>微信支付</p>
+      </div>
+    
+
+    
+
+    
+
+  </div>
+</div>
+
+      </div>
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/%E5%BC%80%E5%8F%91%E8%A7%84%E8%8C%83/" rel="tag"># 开发规范</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/03/31/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/ThreadLocal%E6%89%AB%E7%9B%B2%E8%B4%B4/" rel="next" title="ThreadLocal扫盲贴">
+                <i class="fa fa-chevron-left"></i> ThreadLocal扫盲贴
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2021/03/31/CoreJava/%E6%B3%9B%E5%9E%8B(generics)%E6%89%AB%E7%9B%B2%E8%B4%B4/" rel="prev" title="泛型(generics)扫盲贴">
+                泛型(generics)扫盲贴 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/uploads/avatar.png"
+                alt="Jeffrey Wang" />
+            
+              <p class="site-author-name" itemprop="name">Jeffrey Wang</p>
+              <p class="site-description motion-element" itemprop="description">虚怀若谷，持续学习，持续进步，共勉。</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives">
+              
+                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/wangqi-jeffrey" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:wang_qi7878@163.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://www.cnblogs.com/wangqi-jeffrey/" target="_blank" title="CN-blogs">
+                      
+                        <i class="fa fa-fw fa-rss"></i>CN-blogs</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://blog.csdn.net/u014029255" target="_blank" title="CSDN">
+                      
+                        <i class="fa fa-fw fa-link"></i>CSDN</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="https://stackoverflow.com/users/10551785/user10551785?tab=summary" target="_blank" title="StackOverflow">
+                      
+                        <i class="fa fa-fw fa-stack-overflow"></i>StackOverflow</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-包命名规范"><span class="nav-number">1.</span> <span class="nav-text">1. 包命名规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-类命名规范"><span class="nav-number">2.</span> <span class="nav-text">2. 类命名规范</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#2-1-接口命名规范"><span class="nav-number">2.0.1.</span> <span class="nav-text">2.1 接口命名规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-2-抽象类命名规范"><span class="nav-number">2.0.2.</span> <span class="nav-text">2.2 抽象类命名规范</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-3-异常类命名规范"><span class="nav-number">2.0.3.</span> <span class="nav-text">2.3 异常类命名规范</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-方法命名规范"><span class="nav-number">3.</span> <span class="nav-text">3.方法命名规范</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#3-1-表述获取"><span class="nav-number">3.0.1.</span> <span class="nav-text">3.1 表述获取</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-2-表述查询"><span class="nav-number">3.0.2.</span> <span class="nav-text">3.2 表述查询</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-3-表述条件"><span class="nav-number">3.0.3.</span> <span class="nav-text">3.3 表述条件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-4-表述设置"><span class="nav-number">3.0.4.</span> <span class="nav-text">3.4 表述设置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-5-其他规范"><span class="nav-number">3.0.5.</span> <span class="nav-text">3.5 其他规范</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-变量命名规范"><span class="nav-number">4.</span> <span class="nav-text">4.变量命名规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-常量命名规范"><span class="nav-number">5.</span> <span class="nav-text">5.常量命名规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-枚举命名规范"><span class="nav-number">6.</span> <span class="nav-text">6. 枚举命名规范</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-其他命名规范"><span class="nav-number">7.</span> <span class="nav-text">7. 其他命名规范</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#7-1-数组"><span class="nav-number">7.0.1.</span> <span class="nav-text">7.1 数组</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-2-表述复数或者集合"><span class="nav-number">7.0.2.</span> <span class="nav-text">7.2 表述复数或者集合</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-3-泛型类"><span class="nav-number">7.0.3.</span> <span class="nav-text">7.3 泛型类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-4-接口实现类"><span class="nav-number">7.0.4.</span> <span class="nav-text">7.4 接口实现类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#7-5-测试类和测试方法"><span class="nav-number">7.0.5.</span> <span class="nav-text">7.5 测试类和测试方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#8-扩展：速记-Java-开发中的各种O"><span class="nav-number">8.</span> <span class="nav-text">8 扩展：速记 Java 开发中的各种O</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Jeffrey Wang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+<span class="post-meta-divider">|</span>
+<a class="theme-link" target="_blank" href="http://www.beian.miit.gov.cn/">京ICP备 20024589号</a>
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/assets/hijiki.model.json"},"display":{"position":"right","width":150,"height":300},"mobile":{"show":false},"react":{"opacity":0.7},"log":false});</script></body>
+</html>
