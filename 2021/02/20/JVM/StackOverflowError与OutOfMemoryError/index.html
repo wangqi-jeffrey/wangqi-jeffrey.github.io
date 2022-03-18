@@ -87,11 +87,11 @@
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
 <meta property="og:description" content="本文基于 Java 15  StackOverflowError 与 OutOfMemoryError 是两个老生常谈的 Java 错误。Java 中的虚拟机错误 VirtualMachineError 包括以下四种：  我们比较关心的就是 StackOverflowError 与 OutOfMemoryError，剩下的 InternalError 一般是内部使用错误，UnknownError">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;01.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;02.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;02&#x2F;20&#x2F;JVM&#x2F;StackOverflowError%E4%B8%8EOutOfMemoryError&#x2F;01.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;02&#x2F;20&#x2F;JVM&#x2F;StackOverflowError%E4%B8%8EOutOfMemoryError&#x2F;02.png">
 <meta property="og:updated_time" content="2021-02-20T09:45:23.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;01.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;02&#x2F;20&#x2F;JVM&#x2F;StackOverflowError%E4%B8%8EOutOfMemoryError&#x2F;01.png">
 
 
 
@@ -383,7 +383,7 @@
 <p>本文基于 Java 15</p>
 </blockquote>
 <p>StackOverflowError 与 OutOfMemoryError 是两个老生常谈的 Java 错误。Java 中的虚拟机错误 VirtualMachineError 包括以下四种：</p>
-<p><img src="/.io//01.png" alt="Image png"></p>
+<p><img src="/2021/02/20/JVM/StackOverflowError%E4%B8%8EOutOfMemoryError/01.png" alt="Image png"></p>
 <p>我们比较关心的就是 StackOverflowError 与 OutOfMemoryError，剩下的 InternalError 一般是内部使用错误，UnknownError 是虚拟机发生未知异常，这两种我们这里不讨论。</p>
 <h4 id="虚拟机规范中的-StackOverflowError-与-OutOfMemoryError"><a href="#虚拟机规范中的-StackOverflowError-与-OutOfMemoryError" class="headerlink" title="虚拟机规范中的 StackOverflowError 与 OutOfMemoryError"></a>虚拟机规范中的 StackOverflowError 与 OutOfMemoryError</h4><p>参考 Java 虚拟机规范官方文档：<a href="https://docs.oracle.com/javase/specs/jvms/se15/html/jvms-2.html#jvms-2.5" target="_blank" rel="noopener">Run-Time Data Areas</a>，可以知道，在如下情况下，会抛出这两种错误：</p>
 <ul>
@@ -451,7 +451,7 @@
 <p>在 DirectByteBuffer 中，首先向 Bits 类申请额度，Bits 类有一个全局的 totalCapacity 变量，记录着全部 DirectByteBuffer 的总大小，每次申请，都先看看是否超限,堆外内存的限额默认与堆内内存(由 -Xmx 设定)相仿，可用 -XX:MaxDirectMemorySize 重新设定。</p>
 <p>如果不指定，该参数的默认值为 Xmx 的值减去1个 Survior 区的值。 如设置启动参数 -Xmx20M -Xmn10M -XX：SurvivorRatio=8,那么申请 20M-1M=19M 的DirectMemory<br>如果已经超限，会主动执行 Sytem.gc()，期待能主动回收一点堆外内存。System.gc() 会触发一个 full gc，当然前提是你没有显示的设置 -XX:+DisableExplicitGC 来禁用显式GC。并且你需要知道，调用 System.gc() 并不能够保证 full gc 马上就能被执行。然后休眠一百毫秒，看看 totalCapacity 降下来没有，如果内存还是不足，就抛出 OOM 异常。如果额度被批准，就调用大名鼎鼎的sun.misc.Unsafe去分配内存,返回内存基地址</p>
 <p>在发生这种异常时，一般通过 JMX 的java.nio.BufferPool.direct里面的属性去监控直接内存的变化以及使用（其实就是 BufferPoolMXBean ），来定位问题。</p>
-<p><img src="/.io//02.png" alt="Image png"></p>
+<p><img src="/2021/02/20/JVM/StackOverflowError%E4%B8%8EOutOfMemoryError/02.png" alt="Image png"></p>
 <h5 id="6-OutOfMemoryError-map-failed"><a href="#6-OutOfMemoryError-map-failed" class="headerlink" title="6. OutOfMemoryError: map failed"></a>6. OutOfMemoryError: map failed</h5><p>这个是 File MMAP（文件映射内存）时，如果系统内存不足，就会抛出这个异常，对应的源代码是：</p>
 <ul>
 <li>Windows：<a href="https://github.com/openjdk/jdk/blob/master/src/java.base/unix/native/libnio/ch/FileDispatcherImpl.c" target="_blank" rel="noopener">FileDispatcherImpl.c</a></li>

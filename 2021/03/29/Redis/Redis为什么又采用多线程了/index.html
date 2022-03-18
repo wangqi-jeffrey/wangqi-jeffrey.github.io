@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
 <meta property="og:description" content="Redis 不是已经采用了多路复用技术吗？不是号称很高的性能了吗？为啥还要采用多线程模型呢？ Redis 为什么最开始被设计成单线程的？Redis 作为一个成熟的分布式缓存框架，它由很多个模块组成，如网络请求模块、索引模块、存储模块、高可用集群支撑模块、数据操作模块等。很多人说 Redis 是单线程的，就认为 Redis 中所有模块的操作都是单线程的，其实这是不对的。 我们所说的 Redis 单线">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;01.jpeg">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;02.jpeg">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;03.jpeg">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;04.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;03&#x2F;29&#x2F;Redis&#x2F;Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86&#x2F;01.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;03&#x2F;29&#x2F;Redis&#x2F;Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86&#x2F;02.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;03&#x2F;29&#x2F;Redis&#x2F;Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86&#x2F;03.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;03&#x2F;29&#x2F;Redis&#x2F;Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86&#x2F;04.jpeg">
 <meta property="og:updated_time" content="2021-03-29T12:31:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;01.jpeg">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;03&#x2F;29&#x2F;Redis&#x2F;Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86&#x2F;01.jpeg">
 
 
 
@@ -416,15 +416,15 @@
 <p>还是要记住：Redis 并不是完全单线程的，只是有关键的网络 IO 和键值对读写是由一个线程完成的。</p>
 <h2 id="Redis-的多路复用"><a href="#Redis-的多路复用" class="headerlink" title="Redis 的多路复用"></a>Redis 的多路复用</h2><p>这里先讲讲 <strong>Linux 多路复用技术，就是多个进程的 IO 可以注册到同一个管道上，这个管道会统一和内核进行交互。</strong></p>
 <p><strong>当管道中的某一个请求需要的数据准备好之后，进程再把对应的数据拷贝到用户空间中。</strong></p>
-<p><img src="/.io//01.jpeg" alt="Image png"></p>
+<p><img src="/2021/03/29/Redis/Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86/01.jpeg" alt="Image png"></p>
 <p>也就是说，通过一个线程来处理多个 IO 流。</p>
 <p>IO 多路复用在 Linux 下包括了三种，select、poll、epoll，抽象来看，他们功能是类似的，但具体细节各有不同。</p>
 <p>其实，Redis 的 IO 多路复用程序的所有功能都是通过包装操作系统的 IO 多路复用函数库来实现的。</p>
 <p>每个 IO 多路复用函数库在 Redis 源码中都有对应的一个单独的文件。</p>
-<p><img src="/.io//02.jpeg" alt="Image png"></p>
+<p><img src="/2021/03/29/Redis/Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86/02.jpeg" alt="Image png"></p>
 <p>在 Redis 中，每当一个套接字准备好执行连接应答、写入、读取、关闭等操作时，就会产生一个文件事件。</p>
 <p>因为一个服务器通常会连接多个套接字，所以多个文件事件有可能会并发地出现。</p>
-<p><img src="/.io//03.jpeg" alt="Image png"></p>
+<p><img src="/2021/03/29/Redis/Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86/03.jpeg" alt="Image png"></p>
 <p>一旦有请求到达，就会交给 Redis 线程处理，这就实现了一个 Redis 线程处理多个 IO 流的效果。</p>
 <p>所以，Redis 选择使用多路复用 IO 技术来提升 I/O 利用率。</p>
 <p>而之所以 Redis 能够有这么高的性能，不仅仅和采用多路复用技术和单线程有关，此外还有以下几个原因：</p>
@@ -449,7 +449,7 @@
 <p>而经过分析，限制 Redis 的性能的主要瓶颈出现在网络 IO 的处理上，虽然之前采用了多路复用技术。</p>
 <p>但是我们前面也提到过，<strong>多路复用的 IO 模型本质上仍然是同步阻塞型 IO 模型</strong>。</p>
 <p>下面是多路复用 IO 中 select 函数的处理过程：</p>
-<p><img src="/.io//04.jpeg" alt="Image png"></p>
+<p><img src="/2021/03/29/Redis/Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86/04.jpeg" alt="Image png"></p>
 <p>从上图我们可以看到，<strong>在多路复用的 IO 模型中，在处理网络请求时，调用 select （其他函数同理）的过程是阻塞的，也就是说这个过程会阻塞线程，如果并发量很高，此处可能会成为瓶颈。</strong></p>
 <p>虽然现在很多服务器都是多个 CPU 核的，但是对于 Redis 来说，因为使用了单线程，在一次数据操作的过程中，有大量的 CPU 时间片是耗费在了网络 IO 的同步处理上的，并没有充分的发挥出多核的优势。</p>
 <p>如果能采用多线程，使得网络处理的请求并发进行，就可以大大的提升性能。多线程除了可以减少由于网络 I/O 等待造成的影响，还可以充分利用 CPU 的多核优势。</p>

@@ -87,12 +87,12 @@
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
 <meta property="og:description" content="zookeeper介绍zookeeper是一个分布式协调框架，主要是解决分布式应用中经常遇到的一些数据管理问题，如：统一命名服务、状态同步服务、集群管理、分布式应用配置项的管理、分布式锁等。 zookeeper使用1234查看节点：ls &#x2F;path创建节点：create &#x2F;path data修改节点：delete &#x2F;path获取节点数据：get &#x2F;path  zookeeper C&#x2F;S连接状态">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;640632-20190606164245241-1700739260.jpg">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;640632-20190518235524597-352353804.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;640632-20190605211836118-842920544.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;03&#x2F;31&#x2F;Microservices&amp;DistributedSystem&#x2F;%E5%9F%BA%E4%BA%8Ezookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83&#x2F;640632-20190606164245241-1700739260.jpg">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;03&#x2F;31&#x2F;Microservices&amp;DistributedSystem&#x2F;%E5%9F%BA%E4%BA%8Ezookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83&#x2F;640632-20190518235524597-352353804.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;03&#x2F;31&#x2F;Microservices&amp;DistributedSystem&#x2F;%E5%9F%BA%E4%BA%8Ezookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83&#x2F;640632-20190605211836118-842920544.jpg">
 <meta property="og:updated_time" content="2021-03-31T03:25:24.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;640632-20190606164245241-1700739260.jpg">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;03&#x2F;31&#x2F;Microservices&amp;DistributedSystem&#x2F;%E5%9F%BA%E4%BA%8Ezookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83&#x2F;640632-20190606164245241-1700739260.jpg">
 
 
 
@@ -380,7 +380,7 @@
       
 
       
-        <p><img src="/.io//640632-20190606164245241-1700739260.jpg" alt="Image zoo"></p>
+        <p><img src="/2021/03/31/Microservices&DistributedSystem/%E5%9F%BA%E4%BA%8Ezookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/640632-20190606164245241-1700739260.jpg" alt="Image zoo"></p>
 <h3 id="zookeeper介绍"><a href="#zookeeper介绍" class="headerlink" title="zookeeper介绍"></a>zookeeper介绍</h3><p>zookeeper是一个分布式协调框架，主要是解决分布式应用中经常遇到的一些数据管理问题，如：统一命名服务、状态同步服务、集群管理、分布式应用配置项的管理、分布式锁等。</p>
 <h3 id="zookeeper使用"><a href="#zookeeper使用" class="headerlink" title="zookeeper使用"></a>zookeeper使用</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">查看节点：ls /path</span><br><span class="line">创建节点：create /path data</span><br><span class="line">修改节点：delete /path</span><br><span class="line">获取节点数据：get /path</span><br></pre></td></tr></table></figure>
 
@@ -402,7 +402,7 @@
 </ul>
 <p>　　注：EPHEMERAL 临时类型的节点不能有子节点，对于zk来说，有几个节点数据就会存储几份。</p>
 <h4 id="监听机制"><a href="#监听机制" class="headerlink" title="监听机制"></a>监听机制</h4><p>客户端注册监听它关心的目录节点，当目录节点发生变化（数据改变、节点删除、子目录节 点增加删除）时，zookeeper会通知客户端。</p>
-<p><img src="/.io//640632-20190518235524597-352353804.png" alt="Image zoo"></p>
+<p><img src="/2021/03/31/Microservices&DistributedSystem/%E5%9F%BA%E4%BA%8Ezookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/640632-20190518235524597-352353804.png" alt="Image zoo"></p>
 <ul>
 <li><p>1、客户端启动时向zookeeper服务器注册信息</p>
 </li>
@@ -467,7 +467,7 @@
 <p>2、配置更改，实时推送，jvm环境变量及时生效。</p>
 <p>3、依靠配置变更，动态扩展功能，减少二次上线带来的成本。</p>
 <p>4、减少开发人员、运维人员修改配置带来的额外开销。</p>
-<h3 id="配置中心架构图"><a href="#配置中心架构图" class="headerlink" title="配置中心架构图"></a>配置中心架构图</h3><p><img src="/.io//640632-20190605211836118-842920544.jpg" alt="Image zoo"></p>
+<h3 id="配置中心架构图"><a href="#配置中心架构图" class="headerlink" title="配置中心架构图"></a>配置中心架构图</h3><p><img src="/2021/03/31/Microservices&DistributedSystem/%E5%9F%BA%E4%BA%8Ezookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/640632-20190605211836118-842920544.jpg" alt="Image zoo"></p>
 <h3 id="配置中心的功能"><a href="#配置中心的功能" class="headerlink" title="配置中心的功能"></a>配置中心的功能</h3><p>1、配置管理平台中，操作人员可以创建项目所属系统、应用名称、实例名称、配置分组等信息。</p>
 <p>2、配置管理平台中，操作人员可以上传配置文件，对属性有增、删、改、查的操作。</p>
 <p>3、配置内容通过配置管理平台后台服务进行持久化（保存到数据库中）。</p>

@@ -87,13 +87,13 @@
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
 <meta property="og:description" content="各位码农朋友们一定有碰到过这样的情况：在develop分支上辛辛苦苦撸了一通代码后开发出功能模块A，B，C，这时老板过来说，年青人，我们现在先上线功能模块A，B。你一定心里一万只草泥马奔腾而过，但为了混口饭吃必须得按老板的意思办事啊。 怎么办？一个办法就是，重新建一个分支，然后再把功能模块C回退，留下功能模块A，B。这种做法不是不行，但是有更好的办法，那就是git所提供的cherry-pick功能">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;01.jpeg">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;02.jpeg">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;03.jpeg">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;04.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;02&#x2F;24&#x2F;%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7&#x2F;cherry-pick%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%91%BD%E4%BB%A4&#x2F;01.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;02&#x2F;24&#x2F;%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7&#x2F;cherry-pick%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%91%BD%E4%BB%A4&#x2F;02.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;02&#x2F;24&#x2F;%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7&#x2F;cherry-pick%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%91%BD%E4%BB%A4&#x2F;03.jpeg">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;02&#x2F;24&#x2F;%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7&#x2F;cherry-pick%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%91%BD%E4%BB%A4&#x2F;04.jpeg">
 <meta property="og:updated_time" content="2021-02-24T06:17:44.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;01.jpeg">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;02&#x2F;24&#x2F;%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7&#x2F;cherry-pick%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%91%BD%E4%BB%A4&#x2F;01.jpeg">
 
 
 
@@ -386,18 +386,18 @@
 <p>cherry-pick类似于一个定制化的merge，它可以把其它分支上的commit一个个摘下来，合并到当前分支。</p>
 <p>废话不多说，直接上实例。</p>
 <p>比如我现在有个文件a.c，我在develop分支完成了三个功能模块：feature A，feature B，feature C。如下图：</p>
-<p><img src="/.io//01.jpeg" alt="Image zoo"></p>
+<p><img src="/2021/02/24/%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7/cherry-pick%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%91%BD%E4%BB%A4/01.jpeg" alt="Image zoo"></p>
 <p>现在，坑爹的老板只要feature A，feature B，我们现在用cherry-pick命令直接把feature A，feature B的提交合并到master分支里，如下操作：</p>
-<p><img src="/.io//02.jpeg" alt="Image zoo"></p>
+<p><img src="/2021/02/24/%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7/cherry-pick%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%91%BD%E4%BB%A4/02.jpeg" alt="Image zoo"></p>
 <p>可以看到，功能模块feature A，feature B已经被合并到master分支里。请注意，合并到master分支里的提交哈希值发生了改变，与原来的不同。</p>
 <p>可以看出，cherry-pick命令使用方法很简单，即：</p>
 <p><code>git cherry-pick commitID</code></p>
 <p>刚刚是一个个提交cherry-pick到master分支，但如果有100个commit要合并到master分支呢？总不能这样一个个操作吧？git一样帮你想到了，它提供了一个区间操作方法。具体来讲是这样的：</p>
 <p><code>git cherry-pick commit1..commit100</code></p>
 <p>但是要注意，这是一个左开右闭的操作，也就是说，commit1不会被合并到master分支，而commit100则会。这样的话上面的需求可以如下操作来实现：</p>
-<p><img src="/.io//03.jpeg" alt="Image zoo"></p>
+<p><img src="/2021/02/24/%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7/cherry-pick%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%91%BD%E4%BB%A4/03.jpeg" alt="Image zoo"></p>
 <p>注意：上面讲到cherry-pick命令每拣选一个commit就会提交一次生成一个新的commit id。 如果我们想让每个commit 拣选后暂缓提交，等到所有commit都拣选完成后，自己手动commit，应该怎么办呢？答案是用-n 选项：</p>
-<p><img src="/.io//04.jpeg" alt="Image zoo"></p>
+<p><img src="/2021/02/24/%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7/cherry-pick%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%91%BD%E4%BB%A4/04.jpeg" alt="Image zoo"></p>
 
       
     </div>

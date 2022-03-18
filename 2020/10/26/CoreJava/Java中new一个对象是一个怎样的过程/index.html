@@ -87,11 +87,11 @@
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
 <meta property="og:description" content="Java中new一个对象的步骤： 当虚拟机遇到一条new指令时候，首先去检查这个指令的参数是否能 在常量池中能否定位到一个类的符号引用 （即类的带路径全名），并且检查这个符号引用代表的类是否已被加载、解析和初始化过，即验证是否是第一次使用该类。如果没有（不是第一次使用），那必须先执行相应的类加载过程（class.forname()）。  在类加载检查通过后，接下来虚拟机将 为新生的对象分配内存 。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;1757082-20190823164528186-199424695.png">
-<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;1757082-20190823164732018-1329102154.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2020&#x2F;10&#x2F;26&#x2F;CoreJava&#x2F;Java%E4%B8%ADnew%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E4%B8%80%E4%B8%AA%E6%80%8E%E6%A0%B7%E7%9A%84%E8%BF%87%E7%A8%8B&#x2F;1757082-20190823164528186-199424695.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2020&#x2F;10&#x2F;26&#x2F;CoreJava&#x2F;Java%E4%B8%ADnew%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E4%B8%80%E4%B8%AA%E6%80%8E%E6%A0%B7%E7%9A%84%E8%BF%87%E7%A8%8B&#x2F;1757082-20190823164732018-1329102154.png">
 <meta property="og:updated_time" content="2020-10-26T07:53:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;.io&#x2F;&#x2F;1757082-20190823164528186-199424695.png">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2020&#x2F;10&#x2F;26&#x2F;CoreJava&#x2F;Java%E4%B8%ADnew%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E4%B8%80%E4%B8%AA%E6%80%8E%E6%A0%B7%E7%9A%84%E8%BF%87%E7%A8%8B&#x2F;1757082-20190823164528186-199424695.png">
 
 
 
@@ -415,13 +415,13 @@
 </li>
 </ol>
 <p>在这里放一张图您就明白了：</p>
-<p><img src="/.io//1757082-20190823164528186-199424695.png" alt="Image png"></p>
+<p><img src="/2020/10/26/CoreJava/Java%E4%B8%ADnew%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E4%B8%80%E4%B8%AA%E6%80%8E%E6%A0%B7%E7%9A%84%E8%BF%87%E7%A8%8B/1757082-20190823164528186-199424695.png" alt="Image png"></p>
 <ol start="2">
 <li><p>直接指针访问：</p>
 <p>如果使用直接指针访问，那么Java堆对象的布局中就必须考虑如何放置访问类型数据的相关信息，而reference中存储的直接就是<strong>对象地址</strong>。</p>
 </li>
 </ol>
-<p><img src="/.io//1757082-20190823164732018-1329102154.png" alt="Image png"></p>
+<p><img src="/2020/10/26/CoreJava/Java%E4%B8%ADnew%E4%B8%80%E4%B8%AA%E5%AF%B9%E8%B1%A1%E6%98%AF%E4%B8%80%E4%B8%AA%E6%80%8E%E6%A0%B7%E7%9A%84%E8%BF%87%E7%A8%8B/1757082-20190823164732018-1329102154.png" alt="Image png"></p>
 <p>两张图放一起一对比就浅显易懂了。</p>
 <h3 id="二、-类加载过程（第一次使用该类）"><a href="#二、-类加载过程（第一次使用该类）" class="headerlink" title="二、 类加载过程（第一次使用该类）"></a>二、 类加载过程（第一次使用该类）</h3><p>Java是使用 双亲委派模型 来进行类的加载的，所以在描述类加载过程前，我们先看一下它的工作过程：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">如果一个类加载器（ClassLoader）收到了类加载的请求，它首先不会自己去尝试加载这个类，</span><br><span class="line">　　而是把这个请求委托给父类加载器去完成，每一个层次的类加载器都是如此，因此所有的加载请求最终都应该传送到顶层的</span><br><span class="line">　　启动类加载器中，只有当父类加载器反馈自己无法完成这个加载请求（它的搜索范围中没有找到所需要加载的类）时，</span><br><span class="line">　　子加载器才会尝试自己去加载。</span><br><span class="line"></span><br><span class="line">使用双亲委托机制的好处是：</span><br><span class="line">　　能够有效确保一个类的全局唯一性，当程序中出现多个限定名相同的类时，类加载器在执行加载时，始终只会加载其中的某一个类。</span><br></pre></td></tr></table></figure>
