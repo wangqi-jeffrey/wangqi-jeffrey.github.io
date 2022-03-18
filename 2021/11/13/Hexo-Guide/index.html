@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
 <meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2022-03-18T10:14:22.112Z">
+<meta property="og:updated_time" content="2022-03-18T10:20:28.462Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -434,7 +434,7 @@
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![Image zoo](Git实战分享/image2019-1-25_20_50_37.png)</span><br><span class="line">在当前文件下新建与文件名相同目录存放图片</span><br><span class="line">注意：文件名不能存在空格，否则不生效</span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>锚点目录生成不规则：使用h4标题，参考文章：Git 实战分享</li>
+<li>锚点目录生成不规则-临时解决方案：使用h4标题，参考文章：Git 实战分享</li>
 <li>换机方法：</li>
 </ul>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">将本级整个目录拷贝到另一台机器wangqi-jeffrey.github.io</span><br><span class="line">执行命令：npm install hexo-cli -g</span><br><span class="line">然后进到wangqi-jeffrey.github.io执行npm install</span><br><span class="line">hexo s 测试</span><br><span class="line">github认证失败后选择令牌方式登录</span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: <span class="string">'git'</span></span><br><span class="line">  repo: git@github.com:wangqi-jeffrey/wangqi-jeffrey.github.io.git</span><br></pre></td></tr></table></figure>
@@ -442,13 +442,9 @@
 <h3 id="未解决问题"><a href="#未解决问题" class="headerlink" title="未解决问题"></a>未解决问题</h3><ul>
 <li><p>多台Mac同步后，博客更新日期不一致问题</p>
 </li>
-<li><p>图片不展示问题</p>
+<li><p>图片不展示问题-临时解决方案：单台机器发布</p>
 </li>
-<li><p>开发规范/Java开发规范目录不一致问题</p>
-</li>
-<li><p>临时解决方案：单台机器发布</p>
-</li>
-<li><p>终极解决方案：</p>
+<li><p>图片不展示问题-终极解决方案：</p>
 <p><a href="https://github.com/xcodebuild/hexo-asset-image/issues/47" target="_blank" rel="noopener">https://github.com/xcodebuild/hexo-asset-image/issues/47</a></p>
 <p>/Users/jeffrey/wangqi-jeffrey.github.io/node_modules/hexo-asset-image</p>
 </li>
