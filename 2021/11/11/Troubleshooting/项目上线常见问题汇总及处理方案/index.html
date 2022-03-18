@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Mysql Spring," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,15 +79,14 @@
 
 
 
-<meta name="description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
-<meta name="keywords" content="Mysql Spring">
+<meta name="description" content="编者按本文受启发于支付团队一次项目上线中遇到的问题，特结合自身经验，对一些常见问题做统一整理，给出一些解决方案，以供参考。 问题汇总1. 需求改动点多，涉及较多项目，构建及发布耗时太长解决方案：  改动的模块越多，带来的不确定性就越大，需要考虑是否可以分拆需求，每次只做少量更新。拆分的维度：1.功能上，2.前后端。 思考业务模块划分的合理性，如果可以，从功能的角度对模块的划分做一些优化，从公用及特">
 <meta property="og:type" content="article">
-<meta property="og:title" content="工作问题复盘-MySQL和Spring">
-<meta property="og:url" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;03&#x2F;19&#x2F;Troubleshooting&#x2F;%E5%B7%A5%E4%BD%9C%E9%97%AE%E9%A2%98%E5%A4%8D%E7%9B%98-2&#x2F;index.html">
+<meta property="og:title" content="Troubleshooting&#x2F;项目上线常见问题汇总及处理方案">
+<meta property="og:url" content="https:&#x2F;&#x2F;wangqi-jeffrey.github.io&#x2F;2021&#x2F;11&#x2F;11&#x2F;Troubleshooting&#x2F;%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%E5%8F%8A%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88&#x2F;index.html">
 <meta property="og:site_name" content="Jeffrey&#39;s Blog">
-<meta property="og:description" content="Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hexo, you can find the answer in troubleshooting or you can ask me on GitHub. Quick">
+<meta property="og:description" content="编者按本文受启发于支付团队一次项目上线中遇到的问题，特结合自身经验，对一些常见问题做统一整理，给出一些解决方案，以供参考。 问题汇总1. 需求改动点多，涉及较多项目，构建及发布耗时太长解决方案：  改动的模块越多，带来的不确定性就越大，需要考虑是否可以分拆需求，每次只做少量更新。拆分的维度：1.功能上，2.前后端。 思考业务模块划分的合理性，如果可以，从功能的角度对模块的划分做一些优化，从公用及特">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2021-03-19T13:07:44.000Z">
+<meta property="og:updated_time" content="2021-12-08T13:22:00.838Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -118,13 +117,13 @@
 
 
 
-  <link rel="canonical" href="https://wangqi-jeffrey.github.io/2021/03/19/Troubleshooting/工作问题复盘-2/"/>
+  <link rel="canonical" href="https://wangqi-jeffrey.github.io/2021/11/11/Troubleshooting/项目上线常见问题汇总及处理方案/"/>
 
 
 
 
 
-  <title>工作问题复盘-MySQL和Spring | Jeffrey's Blog</title>
+  <title>Troubleshooting/项目上线常见问题汇总及处理方案 | Jeffrey's Blog</title>
   
 
 
@@ -287,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/03/19/Troubleshooting/%E5%B7%A5%E4%BD%9C%E9%97%AE%E9%A2%98%E5%A4%8D%E7%9B%98-2/">
+    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/11/11/Troubleshooting/%E9%A1%B9%E7%9B%AE%E4%B8%8A%E7%BA%BF%E5%B8%B8%E8%A7%81%E9%97%AE%E9%A2%98%E6%B1%87%E6%80%BB%E5%8F%8A%E5%A4%84%E7%90%86%E6%96%B9%E6%A1%88/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeffrey Wang">
@@ -304,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">工作问题复盘-MySQL和Spring</h1>
+          <h1 class="post-title" itemprop="name headline">Troubleshooting/项目上线常见问题汇总及处理方案</h1>
         
 
         <div class="post-meta">
@@ -316,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-19T21:07:44+08:00">
-                2021-03-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-11-11T14:29:13+08:00">
+                2021-11-11
               </time>
             
 
@@ -326,28 +325,6 @@
             
           </span>
 
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Troubleshooting/" itemprop="url" rel="index">
-                    <span itemprop="name">Troubleshooting</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
           
 
           
@@ -376,67 +353,50 @@
       
 
       
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
-<h3 id="More-Links"><a href="#More-Links" class="headerlink" title="More Links"></a>More Links</h3><p><a href="https://www.jianshu.com/p/4eaddcbe4d12" target="_blank" rel="noopener">Hexo搭建教程</a> </p>
-<p><a href="https://hexo.io/themes/" target="_blank" rel="noopener">更多主题</a></p>
-<p><a href="https://hexo.io/plugins/" target="_blank" rel="noopener">更多插件</a></p>
-<p><a href="https://github.com/monniya/hexo-theme-new-vno" target="_blank" rel="noopener">hexo-new-vno主题</a></p>
-<p><a href="https://huangweicai.github.io/" target="_blank" rel="noopener">Demo3</a></p>
-<p><a href="https://www.yanbinghu.com" target="_blank" rel="noopener">Demo4</a></p>
-<p><a href="http://darryrzhong.xyz/" target="_blank" rel="noopener">Demo5</a></p>
-<p><a href="https://www.yangguo.info/2014/05/19/Kryo2.22翻译/" target="_blank" rel="noopener">Demo6</a></p>
-<p><a href="https://www.yangguo.info/" target="_blank" rel="noopener">Demo7</a></p>
-<p><a href="https://suyin-blog.club/categories/" target="_blank" rel="noopener">Demo8-Hexo使用</a></p>
-<p><a href="https://www.gagahappy.com/" target="_blank" rel="noopener">Demo9</a></p>
-<p><a href="https://eyhn.in/about/" target="_blank" rel="noopener">Demo10</a></p>
-<p><a href="http://51world.win/" target="_blank" rel="noopener">Demo11</a></p>
-<p><a href="http://whx4j8.github.io/" target="_blank" rel="noopener">Demo12</a></p>
-<p><a href="https://www.strongerhuang.com/" target="_blank" rel="noopener">Demo13</a></p>
-<p><a href="https://www.lushaojun.com/links" target="_blank" rel="noopener">Demo14</a></p>
-<p><a href="https://ahh666.com/categories/" target="_blank" rel="noopener">Demo15</a></p>
-<p>干掉这里的bug：<a href="https://www.wangtianyi.top/" target="_blank" rel="noopener">https://www.wangtianyi.top/</a></p>
-<p><a href="http://guoyanjun.top" target="_blank" rel="noopener">http://guoyanjun.top</a></p>
-<p><a href="http://www.xiangzhihong.com/" target="_blank" rel="noopener">http://www.xiangzhihong.com/</a></p>
-<p><a href="http://tombraiderjf.com/" target="_blank" rel="noopener">http://tombraiderjf.com/</a></p>
-<p><a href="https://lemonx.cn/" target="_blank" rel="noopener">https://lemonx.cn/</a></p>
-<p><a href="https://liushiqi.xyz/zawen/1.html" target="_blank" rel="noopener">https://liushiqi.xyz/zawen/1.html</a></p>
-<p><a href="https://www.cnblogs.com/hujunzheng/p/10887937.html#autoid-5-0-0" target="_blank" rel="noopener">https://www.cnblogs.com/hujunzheng/p/10887937.html#autoid-5-0-0</a></p>
-<p><a href="https://morning-pro.github.io/categories/Redis/" target="_blank" rel="noopener">https://morning-pro.github.io/categories/Redis/</a></p>
-<p><a href="https://crossoverjie.top/" target="_blank" rel="noopener">https://crossoverjie.top/</a></p>
-<p><a href="https://hexo.io/zh-cn/docs/configuration.html" target="_blank" rel="noopener">Hexo中文网</a></p>
-<p><a href="https://www.javazhiyin.com/" target="_blank" rel="noopener">Java知音</a></p>
-<p><a href="http://theme-next.iissnan.com/getting-started.html" target="_blank" rel="noopener">NexT主题设置</a></p>
-<p><a href="https://fontawesome.com/" target="_blank" rel="noopener">图标库</a></p>
-<p><a href="https://www.javazhiyin.com/" target="_blank" rel="noopener">友情链接-Java知音</a></p>
-<p><a href="http://wangwenming.github.io/" target="_blank" rel="noopener">桉树</a></p>
-<p><a href="https://ikaros-521.github.io/" target="_blank" rel="noopener">https://ikaros-521.github.io/</a></p>
-<p><a href="https://kalasearch.cn/" target="_blank" rel="noopener">卡拉搜索</a></p>
-<h2 id="Getting-Help"><a href="#Getting-Help" class="headerlink" title="Getting Help"></a>Getting Help</h2><h3 id="本地启动测试："><a href="#本地启动测试：" class="headerlink" title="本地启动测试："></a>本地启动测试：</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo s</span><br></pre></td></tr></table></figure>
-
-<h3 id="发布"><a href="#发布" class="headerlink" title="发布"></a>发布</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo clean &amp;&amp; hexo g &amp;&amp; hexo d</span><br></pre></td></tr></table></figure>
-
-<h3 id="常用命令"><a href="#常用命令" class="headerlink" title="常用命令"></a>常用命令</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;postName&quot; #新建文章</span><br><span class="line">hexo new page &quot;pageName&quot; #新建页面</span><br><span class="line">hexo generate #生成静态页面至public目录</span><br><span class="line">hexo server #开启预览访问端口（默认端口4000，&apos;ctrl + c&apos;关闭server）</span><br><span class="line">hexo deploy #部署到GitHub</span><br><span class="line">hexo help  # 查看帮助</span><br><span class="line">hexo version  #查看Hexo的版本</span><br><span class="line"></span><br><span class="line">## 缩写</span><br><span class="line">hexo n == hexo new</span><br><span class="line">hexo g == hexo generate</span><br><span class="line">hexo s == hexo server</span><br><span class="line">hexo d == hexo deploy</span><br></pre></td></tr></table></figure>
-
-<h3 id="Hexo-使用经验"><a href="#Hexo-使用经验" class="headerlink" title="Hexo 使用经验"></a>Hexo 使用经验</h3><ul>
-<li>插入本地图片：</li>
-</ul>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">![Image zoo](Git实战分享/image2019-1-25_20_50_37.png)</span><br><span class="line">在当前文件下新建与文件名相同目录存放图片</span><br><span class="line">注意：文件名不能存在空格，否则不生效</span><br></pre></td></tr></table></figure>
-
+        <h2 id="编者按"><a href="#编者按" class="headerlink" title="编者按"></a>编者按</h2><p>本文受启发于支付团队一次项目上线中遇到的问题，特结合自身经验，对一些常见问题做统一整理，给出一些解决方案，以供参考。</p>
+<h2 id="问题汇总"><a href="#问题汇总" class="headerlink" title="问题汇总"></a>问题汇总</h2><h3 id="1-需求改动点多，涉及较多项目，构建及发布耗时太长"><a href="#1-需求改动点多，涉及较多项目，构建及发布耗时太长" class="headerlink" title="1. 需求改动点多，涉及较多项目，构建及发布耗时太长"></a>1. 需求改动点多，涉及较多项目，构建及发布耗时太长</h3><p>解决方案：</p>
 <ul>
-<li>锚点目录生成不规则：使用h4标题，参考文章：Git 实战分享</li>
+<li>改动的模块越多，带来的不确定性就越大，需要考虑是否可以分拆需求，每次只做少量更新。<br>拆分的维度：1.功能上，2.前后端。</li>
+<li>思考业务模块划分的合理性，如果可以，从功能的角度对模块的划分做一些优化，从公用及特性化的角度划分，做好各个模块之间的接口设计。</li>
 </ul>
+<h3 id="2-产品上线环节验收周期长，产品经理投入度不够"><a href="#2-产品上线环节验收周期长，产品经理投入度不够" class="headerlink" title="2. 产品上线环节验收周期长，产品经理投入度不够"></a>2. 产品上线环节验收周期长，产品经理投入度不够</h3><p>解决方案：</p>
+<ul>
+<li>提前确定好上线时间，尽量与产品提前沟通，尽可能协调大家的时间集中火力，速战速决。</li>
+</ul>
+<h3 id="3-上线后发现功能与产品预期不一致"><a href="#3-上线后发现功能与产品预期不一致" class="headerlink" title="3. 上线后发现功能与产品预期不一致"></a>3. 上线后发现功能与产品预期不一致</h3><p>解决方案：</p>
+<ul>
+<li>需求经评审后，不应该再做变动，如有变动需要通过变更流程（可以按较轻的流程处理），变动应第一时间知会开发人员，开发人员评估后，应给出反馈，如对项目计划有影响，应提前告知</li>
+<li>产品经理需要在上线前做功能性验收，尤其是有需求变动的项目。</li>
+<li>正式发布前的上线审批环节，应加入”产品经理确认-功能已实现”的环节。显式的流程有助于提醒产品经理，在开发完成或者测试完成后做功能验收，而不至于在上线后才发现，打乱上线节奏。</li>
+</ul>
+<h3 id="4-上线后发现某些功能验证困难或者无法验证"><a href="#4-上线后发现某些功能验证困难或者无法验证" class="headerlink" title="4. 上线后发现某些功能验证困难或者无法验证"></a>4. 上线后发现某些功能验证困难或者无法验证</h3><p>解决方案：</p>
+<ul>
+<li>设计或者开发阶段应考虑的功能的可测试性，从技术角度做一些工作，比如可以增加一些特殊的配置，减少这种问题的影响</li>
+<li>如确实无法避免，应该提前考虑，提前告知，让大家有所准备。</li>
+<li>考虑将验证环节遗留到可以验证的时候再进行</li>
+</ul>
+<h3 id="5-上线过程遇到预期外的环境问题（服务器、网络等等）"><a href="#5-上线过程遇到预期外的环境问题（服务器、网络等等）" class="headerlink" title="5. 上线过程遇到预期外的环境问题（服务器、网络等等）"></a>5. 上线过程遇到预期外的环境问题（服务器、网络等等）</h3><p>解决方案：</p>
+<ul>
+<li>此问题可能无法100%避免，因此建议提前将发布时间、发布方案告知运维人员，尽可能在运维人员知晓并能配合的时间发布，避免出现有问题时找不到人处理的情况，而延误上线计划。</li>
+</ul>
+<h3 id="6-上线过程中发现依赖的内部或者外部资源并未准备好"><a href="#6-上线过程中发现依赖的内部或者外部资源并未准备好" class="headerlink" title="6. 上线过程中发现依赖的内部或者外部资源并未准备好"></a>6. 上线过程中发现依赖的内部或者外部资源并未准备好</h3><p>依赖资源包括但不限于：数据库库表结构、数据库权限、网络策略、IP白名单授权、依赖的内外部服务等<br>解决方案：</p>
+<ul>
+<li>上线前增加梳理依赖资源的环节，将可以在上线前准备好的依赖资源申请或者准备好，并做好验证。（多数依赖项可以独立与上线过程提前准备）</li>
+<li>提前知会依赖的内外部资源的相关干系人，以便出现问题时能及时联系</li>
+<li>对于依赖的外部资源更要协调好可以支持的时间。</li>
+</ul>
+<h3 id="7-上线验证环节发现了功能性Bug"><a href="#7-上线验证环节发现了功能性Bug" class="headerlink" title="7. 上线验证环节发现了功能性Bug"></a>7. 上线验证环节发现了功能性Bug</h3><p>解决方案：</p>
+<ul>
+<li>及时上报已发现的问题，对问题的严重性及影响做评估，并及时报告</li>
+<li>对问题的严重性及影响做好评估，采取下一步措施：1.发布中止，回退，2. 继续发布，已经发现的问题在后续版本修复，3. 发布暂停，立即修复问题，完成后继续发布。对于需要立即修复的问题，一定不要操之过急，避免在修复问题的同时引入新的问题。</li>
+</ul>
+<h3 id="8-项目上线后，一些依赖该项目的产品或者服务发现异常情况"><a href="#8-项目上线后，一些依赖该项目的产品或者服务发现异常情况" class="headerlink" title="8. 项目上线后，一些依赖该项目的产品或者服务发现异常情况"></a>8. 项目上线后，一些依赖该项目的产品或者服务发现异常情况</h3><p>此情况可能发生在一些对公共模块的修改中。<br>解决方案：</p>
+<ul>
+<li>首先在项目开始阶段，应该正确评估此类模块修改的影响，对于已有的接口尽量采用兼容性的修改，对于无法兼容的情况，应该及时告知调用方做必要的修改。</li>
+<li>问题出现后，及时上报，遇到不能快速修复问题，应及时回退已更新的模块，避免造成更大的影响。</li>
+</ul>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>以上便是结合历史项目的经验，对一些常见问题整理，并给出的考虑解决方案，希望对后续项目上线有所参考。总体上讲，应该坚持：早准备、早评估，早发现，早解决。对于可能出现的问题应该有所预见，这样才能临危不乱，游刃有余。</p>
+<p>欢迎评论、补充、讨论。</p>
 
       
     </div>
@@ -476,12 +436,6 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/Mysql-Spring/" rel="tag"># Mysql Spring</a>
-          
-        </div>
-      
 
       
       
@@ -491,8 +445,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2021/02/24/%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7/cherry-pick%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%91%BD%E4%BB%A4/" rel="next" title="cherry-pick一个可以提高开发效率的命令">
-                <i class="fa fa-chevron-left"></i> cherry-pick一个可以提高开发效率的命令
+              <a href="/2021/11/11/%E7%AE%A1%E7%90%86/%E3%80%90%E6%9C%89%E6%95%88%E6%B2%9F%E9%80%9A%E3%80%91%E8%B7%A8%E9%83%A8%E9%97%A8%E6%B2%9F%E9%80%9A%E7%9A%8410%E4%B8%AA%E5%8E%9F%E5%88%99/" rel="next" title="管理/【有效沟通】跨部门沟通的10个原则">
+                <i class="fa fa-chevron-left"></i> 管理/【有效沟通】跨部门沟通的10个原则
               </a>
             
           </div>
@@ -501,8 +455,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2021/03/19/Database/MySQL%E5%B9%BB%E8%AF%BB%E8%AF%A6%E8%A7%A3/" rel="prev" title="MySQL幻读详解">
-                MySQL幻读详解 <i class="fa fa-chevron-right"></i>
+              <a href="/2021/11/13/Hexo-Guide/" rel="prev" title="Hexo-Guide">
+                Hexo-Guide <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -584,7 +538,7 @@
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">33</span>
+                  <span class="site-state-item-count">38</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -606,7 +560,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">29</span>
+                  <span class="site-state-item-count">28</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -673,7 +627,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#Quick-Start"><span class="nav-number">1.</span> <span class="nav-text">Quick Start</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Create-a-new-post"><span class="nav-number">1.1.</span> <span class="nav-text">Create a new post</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Run-server"><span class="nav-number">1.2.</span> <span class="nav-text">Run server</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Generate-static-files"><span class="nav-number">1.3.</span> <span class="nav-text">Generate static files</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Deploy-to-remote-sites"><span class="nav-number">1.4.</span> <span class="nav-text">Deploy to remote sites</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#More-Links"><span class="nav-number">1.5.</span> <span class="nav-text">More Links</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Getting-Help"><span class="nav-number">2.</span> <span class="nav-text">Getting Help</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#本地启动测试："><span class="nav-number">2.1.</span> <span class="nav-text">本地启动测试：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#发布"><span class="nav-number">2.2.</span> <span class="nav-text">发布</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常用命令"><span class="nav-number">2.3.</span> <span class="nav-text">常用命令</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Hexo-使用经验"><span class="nav-number">2.4.</span> <span class="nav-text">Hexo 使用经验</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#编者按"><span class="nav-number">1.</span> <span class="nav-text">编者按</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题汇总"><span class="nav-number">2.</span> <span class="nav-text">问题汇总</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-需求改动点多，涉及较多项目，构建及发布耗时太长"><span class="nav-number">2.1.</span> <span class="nav-text">1. 需求改动点多，涉及较多项目，构建及发布耗时太长</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-产品上线环节验收周期长，产品经理投入度不够"><span class="nav-number">2.2.</span> <span class="nav-text">2. 产品上线环节验收周期长，产品经理投入度不够</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-上线后发现功能与产品预期不一致"><span class="nav-number">2.3.</span> <span class="nav-text">3. 上线后发现功能与产品预期不一致</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-上线后发现某些功能验证困难或者无法验证"><span class="nav-number">2.4.</span> <span class="nav-text">4. 上线后发现某些功能验证困难或者无法验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-上线过程遇到预期外的环境问题（服务器、网络等等）"><span class="nav-number">2.5.</span> <span class="nav-text">5. 上线过程遇到预期外的环境问题（服务器、网络等等）</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#6-上线过程中发现依赖的内部或者外部资源并未准备好"><span class="nav-number">2.6.</span> <span class="nav-text">6. 上线过程中发现依赖的内部或者外部资源并未准备好</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-上线验证环节发现了功能性Bug"><span class="nav-number">2.7.</span> <span class="nav-text">7. 上线验证环节发现了功能性Bug</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#8-项目上线后，一些依赖该项目的产品或者服务发现异常情况"><span class="nav-number">2.8.</span> <span class="nav-text">8. 项目上线后，一些依赖该项目的产品或者服务发现异常情况</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#结语"><span class="nav-number">3.</span> <span class="nav-text">结语</span></a></li></ol></div>
             
 
           </div>
@@ -694,7 +648,7 @@
     <footer id="footer" class="footer">
       <div class="footer-inner">
         <div class="copyright">&copy; 
-  <span itemprop="copyrightYear">2021</span>
+  <span itemprop="copyrightYear">2022</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
