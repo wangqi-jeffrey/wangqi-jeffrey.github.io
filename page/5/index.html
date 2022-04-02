@@ -286,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/03/19/Database/%E6%B0%B8%E8%BF%9C%E4%B8%8D%E8%A6%81%E5%9C%A8MySQL%E4%B8%AD%E4%BD%BF%E7%94%A8UTF-8/">
+    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/03/31/Microservices&DistributedSystem/%E5%9F%BA%E4%BA%8Ezookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeffrey Wang">
@@ -305,7 +305,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/19/Database/%E6%B0%B8%E8%BF%9C%E4%B8%8D%E8%A6%81%E5%9C%A8MySQL%E4%B8%AD%E4%BD%BF%E7%94%A8UTF-8/" itemprop="url">永远不要在MySQL中使用UTF-8</a></h1>
+                <a class="post-title-link" href="/2021/03/31/Microservices&DistributedSystem/%E5%9F%BA%E4%BA%8Ezookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/" itemprop="url">基于zookeeper实现分布式配置中心</a></h1>
         
 
         <div class="post-meta">
@@ -317,8 +317,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-19T21:08:01+08:00">
-                2021-03-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-31T11:25:24+08:00">
+                2021-03-31
               </time>
             
 
@@ -340,8 +340,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Database/" itemprop="url" rel="index">
-                    <span itemprop="name">Database</span>
+                  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">微服务与分布式</span>
                   </a>
                 </span>
 
@@ -379,14 +379,13 @@
       
         
           
-          最近我遇到了一个bug，我试着通过Rails在以“utf8”编码的MariaDB中保存一个UTF-8字符串，然后出现了一个离奇的错误：
-1Incorrectstring value:‘\xF0\x9F\x98\x83 &lt;…’ for column ‘summary’ at row 1
-
-我用的
+          
+zookeeper介绍zookeeper是一个分布式协调框架，主要是解决分布式应用中经常遇到的一些数据管理问题，如：统一命名服务、状态同步服务、集群管理、分布式应用配置项的管理、分布式锁等。
+zookeeper使用1234查看节点：ls /path创建节点：create /path data修改节
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/19/Database/%E6%B0%B8%E8%BF%9C%E4%B8%8D%E8%A6%81%E5%9C%A8MySQL%E4%B8%AD%E4%BD%BF%E7%94%A8UTF-8/#more" rel="contents">
+            <a class="btn" href="/2021/03/31/Microservices&DistributedSystem/%E5%9F%BA%E4%BA%8Ezookeeper%E5%AE%9E%E7%8E%B0%E5%88%86%E5%B8%83%E5%BC%8F%E9%85%8D%E7%BD%AE%E4%B8%AD%E5%BF%83/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -437,7 +436,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/03/19/Database/MySQL%E5%B9%BB%E8%AF%BB%E8%AF%A6%E8%A7%A3/">
+    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/03/31/Microservices&DistributedSystem/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeffrey Wang">
@@ -456,7 +455,7 @@
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/03/19/Database/MySQL%E5%B9%BB%E8%AF%BB%E8%AF%A6%E8%A7%A3/" itemprop="url">MySQL幻读详解</a></h1>
+                <a class="post-title-link" href="/2021/03/31/Microservices&DistributedSystem/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/" itemprop="url">分布式锁</a></h1>
         
 
         <div class="post-meta">
@@ -468,8 +467,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-19T21:07:57+08:00">
-                2021-03-19
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-31T11:25:10+08:00">
+                2021-03-31
               </time>
             
 
@@ -491,8 +490,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/Database/" itemprop="url" rel="index">
-                    <span itemprop="name">Database</span>
+                  <a href="/categories/%E5%BE%AE%E6%9C%8D%E5%8A%A1%E4%B8%8E%E5%88%86%E5%B8%83%E5%BC%8F/" itemprop="url" rel="index">
+                    <span itemprop="name">微服务与分布式</span>
                   </a>
                 </span>
 
@@ -530,12 +529,20 @@
       
         
           
-          什么是幻读
-The so-called phantom problem occurs within a transaction when the same query produces different sets of rows at different times. For example, i
-          ...
+          分布式锁
+无锁
+jvm锁
+mysql锁
+redis锁、红锁
+zookeeper锁
+etcd
+
+代码位置
+
+          
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/03/19/Database/MySQL%E5%B9%BB%E8%AF%BB%E8%AF%A6%E8%A7%A3/#more" rel="contents">
+            <a class="btn" href="/2021/03/31/Microservices&DistributedSystem/%E5%88%86%E5%B8%83%E5%BC%8F%E9%94%81/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -586,7 +593,7 @@ The so-called phantom problem occurs within a transaction when the same query pr
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/02/24/%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7/cherry-pick%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%91%BD%E4%BB%A4/">
+    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/03/29/Redis/Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeffrey Wang">
@@ -605,7 +612,7 @@ The so-called phantom problem occurs within a transaction when the same query pr
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/24/%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7/cherry-pick%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%91%BD%E4%BB%A4/" itemprop="url">cherry-pick一个可以提高开发效率的命令</a></h1>
+                <a class="post-title-link" href="/2021/03/29/Redis/Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86/" itemprop="url">Redis为什么又采用多线程了</a></h1>
         
 
         <div class="post-meta">
@@ -617,8 +624,157 @@ The so-called phantom problem occurs within a transaction when the same query pr
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-24T14:17:44+08:00">
-                2021-02-24
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-29T20:31:44+08:00">
+                2021-03-29
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/Redis/" itemprop="url" rel="index">
+                    <span itemprop="name">Redis</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+          Redis 不是已经采用了多路复用技术吗？不是号称很高的性能了吗？为啥还要采用多线程模型呢？
+Redis 为什么最开始被设计成单线程的？Redis 作为一个成熟的分布式缓存框架，它由很多个模块组成，如网络请求模块、索引模块、存储模块、高可用集群支撑模块、数据操作模块等。很多人说 Redis 是单线程
+          ...
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2021/03/29/Redis/Redis%E4%B8%BA%E4%BB%80%E4%B9%88%E5%8F%88%E9%87%87%E7%94%A8%E5%A4%9A%E7%BA%BF%E7%A8%8B%E4%BA%86/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/03/23/%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7/Git%E5%AE%9E%E6%88%98%E5%88%86%E4%BA%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="Jeffrey Wang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/uploads/avatar.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Jeffrey's Blog">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2021/03/23/%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7/Git%E5%AE%9E%E6%88%98%E5%88%86%E4%BA%AB/" itemprop="url">Git 实战分享</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-23T12:28:52+08:00">
+                2021-03-23
               </time>
             
 
@@ -679,12 +835,16 @@ The so-called phantom problem occurs within a transaction when the same query pr
       
         
           
-          各位码农朋友们一定有碰到过这样的情况：在develop分支上辛辛苦苦撸了一通代码后开发出功能模块A，B，C，这时老板过来说，年青人，我们现在先上线功能模块A，B。你一定心里一万只草泥马奔腾而过，但为了混口饭吃必须得按老板的意思办事啊。
-怎么办？一个办法就是，重新建一个分支，然后再把功能模块C回退，留
+          一、基本概念1. git 的四个区域
+
+工作区（Workspace）：开发时放代码的目录
+暂存区（Index / Stage）：临时存放改动文件，就是一个二进制文件。路径.git/index
+版本库（Repository）：.git目录，记录所有版本的数据和提交记录。
+远端库（Remote）：托管代
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/24/%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7/cherry-pick%E4%B8%80%E4%B8%AA%E5%8F%AF%E4%BB%A5%E6%8F%90%E9%AB%98%E5%BC%80%E5%8F%91%E6%95%88%E7%8E%87%E7%9A%84%E5%91%BD%E4%BB%A4/#more" rel="contents">
+            <a class="btn" href="/2021/03/23/%E9%A1%B9%E7%9B%AE%E5%B7%A5%E5%85%B7/Git%E5%AE%9E%E6%88%98%E5%88%86%E4%BA%AB/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -735,7 +895,7 @@ The so-called phantom problem occurs within a transaction when the same query pr
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/02/20/JVM/StackOverflowError%E4%B8%8EOutOfMemoryError/">
+    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/03/19/Database/%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8uuid%E6%88%96%E8%80%85%E9%9B%AA%E8%8A%B1id%E4%BD%9C%E4%B8%BA%E4%B8%BB%E9%94%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="Jeffrey Wang">
@@ -754,7 +914,7 @@ The so-called phantom problem occurs within a transaction when the same query pr
         
           <h1 class="post-title" itemprop="name headline">
                 
-                <a class="post-title-link" href="/2021/02/20/JVM/StackOverflowError%E4%B8%8EOutOfMemoryError/" itemprop="url">StackOverflowError与OutOfMemoryError</a></h1>
+                <a class="post-title-link" href="/2021/03/19/Database/%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8uuid%E6%88%96%E8%80%85%E9%9B%AA%E8%8A%B1id%E4%BD%9C%E4%B8%BA%E4%B8%BB%E9%94%AE/" itemprop="url">为什么MySQL不推荐使用uuid或者雪花id作为主键</a></h1>
         
 
         <div class="post-meta">
@@ -766,8 +926,8 @@ The so-called phantom problem occurs within a transaction when the same query pr
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-20T17:45:23+08:00">
-                2021-02-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-03-19T21:08:04+08:00">
+                2021-03-19
               </time>
             
 
@@ -789,8 +949,8 @@ The so-called phantom problem occurs within a transaction when the same query pr
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/JVM/" itemprop="url" rel="index">
-                    <span itemprop="name">JVM</span>
+                  <a href="/categories/Database/" itemprop="url" rel="index">
+                    <span itemprop="name">Database</span>
                   </a>
                 </span>
 
@@ -828,165 +988,12 @@ The so-called phantom problem occurs within a transaction when the same query pr
       
         
           
-          
-本文基于 Java 15
-
-StackOverflowError 与 OutOfMemoryError 是两个老生常谈的 Java 错误。Java 中的虚拟机错误 VirtualMachineError 包括以下四种：
-
-我们比较关心的就是 StackOverflowError 与 OutOfMe
+          在mysql中设计表的时候,mysql官方推荐不要使用uuid或者不连续不重复的雪花id(long形且唯一，单机递增),而是推荐连续自增的主键id,官方的推荐是auto_increment,那么为什么不建议采用uuid,使用uuid究竟有什么坏处？
+一、mysql和程序实例1.1.要说明这个问题,我
           ...
           <!--noindex-->
           <div class="post-button text-center">
-            <a class="btn" href="/2021/02/20/JVM/StackOverflowError%E4%B8%8EOutOfMemoryError/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="https://wangqi-jeffrey.github.io/2021/02/20/CoreJava/ClassNotFoundException%E4%B8%8ENoClassDefFoundError%E7%9A%84%E5%8C%BA%E5%88%AB/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="Jeffrey Wang">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/uploads/avatar.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Jeffrey's Blog">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2021/02/20/CoreJava/ClassNotFoundException%E4%B8%8ENoClassDefFoundError%E7%9A%84%E5%8C%BA%E5%88%AB/" itemprop="url">ClassNotFoundException与NoClassDefFoundError的区别</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2021-02-20T17:03:59+08:00">
-                2021-02-20
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/CoreJava/" itemprop="url" rel="index">
-                    <span itemprop="name">CoreJava</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-          ClassNotFoundException发生在装入阶段。当应用程序试图通过类的字符串名称，使用常规的三种方法装入类，但却找不到指定名称的类定义时就抛出该异常。
-根据类加载器的可见性机制，子类加载器可以看到父类加载器加载的类，而反之则不行。所以当一个类已经被Application类加载器加载过了，
-          ...
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2021/02/20/CoreJava/ClassNotFoundException%E4%B8%8ENoClassDefFoundError%E7%9A%84%E5%8C%BA%E5%88%AB/#more" rel="contents">
+            <a class="btn" href="/2021/03/19/Database/%E4%B8%BA%E4%BB%80%E4%B9%88MySQL%E4%B8%8D%E6%8E%A8%E8%8D%90%E4%BD%BF%E7%94%A8uuid%E6%88%96%E8%80%85%E9%9B%AA%E8%8A%B1id%E4%BD%9C%E4%B8%BA%E4%B8%BB%E9%94%AE/#more" rel="contents">
               阅读全文 &raquo;
             </a>
           </div>
@@ -1028,7 +1035,7 @@ StackOverflowError 与 OutOfMemoryError 是两个老生常谈的 Java 错误。J
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/8/">8</a><a class="extend next" rel="next" href="/page/6/">&gt;</a>
+    <a class="extend prev" rel="prev" href="/page/4/">&lt;</a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/">&gt;</a>
   </nav>
 
 
@@ -1078,7 +1085,7 @@ StackOverflowError 与 OutOfMemoryError 是两个老生常谈的 Java 错误。J
               
                 <a href="/archives">
               
-                  <span class="site-state-item-count">38</span>
+                  <span class="site-state-item-count">43</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1089,7 +1096,7 @@ StackOverflowError 与 OutOfMemoryError 是两个老生常谈的 Java 错误。J
               
               <div class="site-state-item site-state-categories">
                 <a href="/categories/index.html">
-                  <span class="site-state-item-count">13</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">分类</span>
                 </a>
               </div>
@@ -1100,7 +1107,7 @@ StackOverflowError 与 OutOfMemoryError 是两个老生常谈的 Java 错误。J
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">28</span>
+                  <span class="site-state-item-count">29</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
